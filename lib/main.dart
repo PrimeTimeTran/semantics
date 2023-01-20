@@ -77,10 +77,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _controller = TextEditingController();
-  late List<Quote> quotes = [
-    Quote('Foo', 'bar'),
-    Quote('Spam', 'ham'),
-  ];
   @override
   void dispose() {
     _controller.dispose();
@@ -92,28 +88,17 @@ class _MyHomePageState extends State<MyHomePage> {
     final data = await json.decode(response)['quotes'];
     var quotes = new List<Quote>.from(data.map((x) => Quote.fromJson(x)));
     quotes.shuffle();
+    print(quotes[0].text);
     return quotes;
   }
-  // Future<void> readJson() async {
-  //   final String response = await rootBundle.loadString('assets/quotes.json');
-  //   final data = await json.decode(response)['quotes'];
-  //   var quotes = new List<Quote>.from(data.map((x) => Quote.fromJson(x)));
-  //   print('Hii Loi, the reasJson beeing CaLLED');
-  //   print(quotes[0].text);
-  //   setState(() {
-  //     quotes = quotes;
-  //   });
-  // }
 
   @override
   void initState() {
     super.initState();
-    // this.readJson();
   }
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(quotes.length.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -153,7 +138,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             title: SelectableText(snapshot.data[index].text),
                             subtitle: Text(snapshot.data[index].author),
                           );
-                          return Text(snapshot.data[index].text);
                         },
                       );
                     },
