@@ -91,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final String response = await rootBundle.loadString('assets/quotes.json');
     final data = await json.decode(response)['quotes'];
     var quotes = new List<Quote>.from(data.map((x) => Quote.fromJson(x)));
+    quotes.shuffle();
     return quotes;
   }
   // Future<void> readJson() async {
@@ -124,6 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               TextField(
                 controller: _controller,
+                autofocus: true,
                 onChanged: (String value) async {
                   print('Hello World');
                   debugPrint(value);
@@ -139,15 +141,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 100,
                   child: FutureBuilder(
                     builder: (context, snapshot) {
-                      // WHILE THE CALL IS BEING MADE AKA LOADING
                       if (ConnectionState.active != null && !snapshot.hasData) {
                         return Center(child: Text('Loading'));
                       }
 
-                      // IF IT WORKS IT GOES HERE!
                       return ListView.builder(
-                        itemCount: snapshot.data.length,
+                        itemCount: snapshot.data.length % 20,
                         itemBuilder: (context, index) {
+                          return ListTile(
+                            leading: FlutterLogo(),
+                            title: SelectableText(snapshot.data[index].text),
+                            subtitle: Text(snapshot.data[index].author),
+                          );
                           return Text(snapshot.data[index].text);
                         },
                       );
