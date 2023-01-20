@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({
+  const MyHomePage({
     Key? key,
     required this.title,
     required this.analytics,
@@ -313,7 +313,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: <Widget>[
-          Text('Hello World gogog'),
           MaterialButton(
             onPressed: _sendAnalyticsEvent,
             child: const Text('Test logEvent'),

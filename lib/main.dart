@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorObservers: <NavigatorObserver>[observer],
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.green,
       ),
       home: MyHomePage(
         title: 'Semantics',
@@ -60,7 +59,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({
+  const MyHomePage({
     Key? key,
     required this.title,
     required this.analytics,
@@ -86,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future getQuotes() async {
     final String response = await rootBundle.loadString('assets/quotes.json');
     final data = await json.decode(response)['quotes'];
-    var quotes = new List<Quote>.from(data.map((x) => Quote.fromJson(x)));
+    var quotes = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
     quotes.shuffle();
     print(quotes[0].text);
     return quotes;
@@ -103,50 +102,46 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              TextField(
-                controller: _controller,
-                autofocus: true,
-                onChanged: (String value) async {
-                  print('Hello World');
-                  debugPrint(value);
-                },
-                // ignore: prefer_const_constructors
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  hintText: 'Enter a search term',
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: <Widget>[
+            TextField(
+              controller: _controller,
+              autofocus: true,
+              onChanged: (String value) async {
+                debugPrint(value);
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter a search term',
+              ),
+            ),
+            Expanded(
+              child: SizedBox(
+                height: 100,
+                child: FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (ConnectionState.active != null && !snapshot.hasData) {
+                      return const Center(child: Text('Loading'));
+                    }
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data.length % 20,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: const FlutterLogo(),
+                          title: SelectableText(snapshot.data[index].text),
+                          subtitle: Text(snapshot.data[index].author),
+                        );
+                      },
+                    );
+                  },
+                  future: getQuotes(),
                 ),
               ),
-              Expanded(
-                child: SizedBox(
-                  height: 100,
-                  child: FutureBuilder(
-                    builder: (context, snapshot) {
-                      if (ConnectionState.active != null && !snapshot.hasData) {
-                        return Center(child: Text('Loading'));
-                      }
-
-                      return ListView.builder(
-                        itemCount: snapshot.data.length % 20,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: FlutterLogo(),
-                            title: SelectableText(snapshot.data[index].text),
-                            subtitle: Text(snapshot.data[index].author),
-                          );
-                        },
-                      );
-                    },
-                    future: getQuotes(),
-                  ),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
