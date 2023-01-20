@@ -30,13 +30,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Firebase Analytics Demo',
+      title: 'Semantics',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       navigatorObservers: <NavigatorObserver>[observer],
       home: MyHomePage(
-        title: 'Firebase Analytics Demo',
+        title: 'Semantics',
         analytics: analytics,
         observer: observer,
       ),
