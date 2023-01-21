@@ -5,10 +5,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-import 'package:semantic/widgets/quotes.dart';
+import 'package:semantic/widgets/composer.dart';
 import 'package:semantic/widgets/my_drawer.dart';
 import 'package:semantic/widgets/nav_bar.dart';
-import 'package:semantic/widgets/composer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -85,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: const Navbar(),
       drawer: const MyDrawer(),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(100.0),
         child: Column(
           children: <Widget>[
             MaterialButton(
@@ -93,7 +92,6 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('Test standard event types'),
             ),
             const Composer(),
-            
           ],
         ),
       ),
