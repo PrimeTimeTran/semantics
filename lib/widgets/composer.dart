@@ -85,20 +85,15 @@ class _ComposerState extends State<Composer> {
             future: quotes,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Expanded(
-                  child: SizedBox(
-                    height: 500,
-                    child: ListView.builder(
-                      itemCount: 20,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: const FlutterLogo(),
-                          title: SelectableText(snapshot.data![index].text),
-                          subtitle: Text(snapshot.data![index].author),
-                        );
-                      },
-                    ),
-                  ),
+                return ListView.builder(
+                  itemCount: 20,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: const FlutterLogo(),
+                      title: SelectableText(snapshot.data![index].text),
+                      subtitle: Text(snapshot.data![index].author),
+                    );
+                  },
                 );
               } else {
                 return const Center(child: Text('Loading'));
