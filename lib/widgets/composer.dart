@@ -6,7 +6,19 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 
 extension StringX on String {
   String take(int nbChars) => substring(0, nbChars.clamp(0, length));
-  String from(int nbChars) => substring(nbChars, length);
+  String from(int nbChars, int typeLength) => substring(nbChars, typeLength);
+}
+
+equalUntil(s1, s2) {
+  var idx = 0;
+  for (var i = 0; i < s1.length; i++) {
+    for (var j = 0; j < s2.length; j++) {
+      if (s1.substring(0, i) == s2.substring(0, j)) {
+        idx = i;
+      }
+    }
+  }
+  return idx;
 }
 
 class Quote {
@@ -73,7 +85,6 @@ class _ComposerState extends State<Composer> {
           autofocus: true,
           controller: _controller,
           onChanged: (String value) async {
-            debugPrint(value);
             setState(() {
               text = value;
             });
@@ -98,11 +109,18 @@ class _ComposerState extends State<Composer> {
                       int length = text.length;
                       var textPrefix = text.take(length);
                       var prefix = t.take(length);
+
+                      var idx = equalUntil(textPrefix, prefix);
+                      print(idx);
+                      print(length);
                       newText = Row(children: [
-                        Text(prefix,
+                        Text(t.take(idx),
                             style: const TextStyle(
                                 backgroundColor: Colors.lightBlue)),
-                        Text(t.from(length))
+                        idx == length ? Text('') : Text(t.from(idx, length),
+                            style:
+                                const TextStyle(backgroundColor: Colors.red)),
+                        Text(t.from(0 + length, t.length))
                       ]);
                     }
                     return ListTile(
