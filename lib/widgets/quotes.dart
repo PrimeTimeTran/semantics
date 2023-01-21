@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class Quotes extends StatefulWidget {
   @override
@@ -28,6 +29,21 @@ class Quote {
 }
 
 class _QuotesState extends State<Quotes> {
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    logEvents();
+  }
+
+  logEvents() async {
+    await analytics.logAppOpen();
+    await analytics.logScreenView(
+      screenName: 'quotes-page',
+    );
+  }
+
   Future<List<Quote>> getQuotes() async {
     final String response = await rootBundle.loadString('assets/quotes.json');
     final data = await json.decode(response)['quotes'];

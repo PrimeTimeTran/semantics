@@ -8,7 +8,6 @@ import 'firebase_options.dart';
 
 import 'package:semantic/widgets/quotes.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorObservers: <NavigatorObserver>[observer],
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.blue,
       ),
       home: MyHomePage(
         title: 'Semantics',
@@ -65,6 +64,15 @@ class _MyHomePageState extends State<MyHomePage> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+    logEvents();
+  }
+
+  Future<void> logEvents() async {
+    print('Log');
+    await widget.analytics.logAppOpen();
+    await widget.analytics.logScreenView(
+      screenName: 'quotes-page',
+    );
   }
 
   @override
@@ -82,6 +90,10 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
+            MaterialButton(
+              onPressed: logEvents,
+              child: const Text('Test standard event types'),
+            ),
             TextField(
               autofocus: true,
               controller: _controller,
