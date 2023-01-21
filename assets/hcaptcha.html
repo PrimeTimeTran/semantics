@@ -1,0 +1,23 @@
+<html>
+
+<head>
+  <title>hCaptcha</title>
+  <script src="https://hcaptcha.com/1/api.js" async defer></script>
+</head>
+
+<body style='background-color: aqua;'>
+  <h1>Hello World WebView</h1>
+  <div style='height: 60px;'></div>
+  <form action="?" method="POST">
+    <div class="h-captcha" data-sitekey="c8db299a-e688-4743-b4ae-d8ba69af59cc" data-callback="captchaCallback"></div>
+  </form>
+  <script>
+    function captchaCallback(response) {
+      if (typeof Captcha !== "undefined") {
+        Captcha.postMessage(response);
+      }
+    }
+  </script>
+</body>
+
+</html>
