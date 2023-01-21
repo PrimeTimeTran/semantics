@@ -54,8 +54,7 @@ class _QuotesState extends State<Quotes> {
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: const FlutterLogo(),
-                    title: SelectableText(snapshot.data![index].id.toString() +
-                        snapshot.data![index].text),
+                    title: SelectableText(snapshot.data![index].text),
                     subtitle: Text(snapshot.data![index].author),
                   );
                 },

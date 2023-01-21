@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:semantic/widgets/quotes.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-
 import 'firebase_options.dart';
-import 'tabs_page.dart';
+
+import 'package:semantic/widgets/quotes.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,25 +15,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
-}
-
-class Quote {
-  final int id;
-  final String text;
-  final String author;
-
-  Quote(this.id, this.text, this.author);
-
-  Quote.fromJson(Map<String, dynamic> json)
-      : text = json['text'],
-        author = json['author'],
-        id = json['id'];
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'text': text,
-        'author': author,
-      };
 }
 
 class MyApp extends StatelessWidget {
@@ -88,16 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-  Future<List<Quote>> getQuotes() async {
-    final String response = await rootBundle.loadString('assets/quotes.json');
-    final data = await json.decode(response)['quotes'];
-    var quotes = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
-    quotes.shuffle();
-    print(quotes.length.toString());
-    print(quotes[0].text);
-    return quotes;
-  }
-
   @override
   void initState() {
     super.initState();
@@ -114,8 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: <Widget>[
             TextField(
-              controller: _controller,
               autofocus: true,
+              controller: _controller,
               onChanged: (String value) async {
                 debugPrint(value);
               },
