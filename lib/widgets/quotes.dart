@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class Quotes extends StatefulWidget {
+  const Quotes({super.key});
+
   @override
   State<Quotes> createState() => _QuotesState();
 }
@@ -56,16 +58,14 @@ class _QuotesState extends State<Quotes> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: FutureBuilder<List<Quote>>(
+    return FutureBuilder<List<Quote>>(
       future: getQuotes(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Expanded(
             child: SizedBox(
-              height: 100,
+              height: 750,
               child: ListView.builder(
-                shrinkWrap: true,
                 itemCount: 20,
                 itemBuilder: (context, index) {
                   return ListTile(
@@ -81,6 +81,6 @@ class _QuotesState extends State<Quotes> {
           return const Center(child: Text('Loading'));
         }
       },
-    ));
+    );
   }
 }

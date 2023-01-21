@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -7,6 +6,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 import 'package:semantic/widgets/quotes.dart';
+import 'package:semantic/widgets/my_drawer.dart';
+import 'package:semantic/widgets/nav_bar.dart';
+import 'package:semantic/widgets/composer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,17 +60,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _controller = TextEditingController();
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
     logEvents();
   }
 
   Future<void> logEvents() async {
-    print('Log');
     await widget.analytics.logAppOpen();
     await widget.analytics.logScreenView(
       screenName: 'quotes-page',
@@ -83,9 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: const Navbar(),
+      drawer: const MyDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -94,18 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: logEvents,
               child: const Text('Test standard event types'),
             ),
-            TextField(
-              autofocus: true,
-              controller: _controller,
-              onChanged: (String value) async {
-                debugPrint(value);
-              },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter a search term',
-              ),
-            ),
-            Quotes(),
+            const Composer(),
+            
           ],
         ),
       ),
