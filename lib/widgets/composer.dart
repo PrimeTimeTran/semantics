@@ -4,6 +4,11 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
+extension StringX on String {
+  String take(int nbChars) => substring(0, nbChars.clamp(0, length));
+  String from(int nbChars) => substring(nbChars, length);
+}
+
 class Quote {
   final int id;
   final String text;
@@ -35,7 +40,6 @@ class _ComposerState extends State<Composer> {
   String text = '';
   final TextEditingController _controller = TextEditingController();
   late Future<List<Quote>> quotes;
-
 
   @override
   void initState() {
@@ -88,9 +92,22 @@ class _ComposerState extends State<Composer> {
                 return ListView.builder(
                   itemCount: 20,
                   itemBuilder: (context, index) {
+                    var t = snapshot.data![index].text;
+                    var newText;
+                    if (index == 0) {
+                      int length = text.length;
+                      var textPrefix = text.take(length);
+                      var prefix = t.take(length);
+                      newText = Row(children: [
+                        Text(prefix,
+                            style: const TextStyle(
+                                backgroundColor: Colors.lightBlue)),
+                        Text(t.from(length))
+                      ]);
+                    }
                     return ListTile(
                       leading: const FlutterLogo(),
-                      title: SelectableText(snapshot.data![index].text),
+                      title: index == 0 ? newText : SelectableText(t),
                       subtitle: Text(snapshot.data![index].author),
                     );
                   },
