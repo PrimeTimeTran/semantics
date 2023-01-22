@@ -30,14 +30,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Semantics',
+      title: 'Semantic Stoic',
       debugShowCheckedModeBanner: false,
       navigatorObservers: <NavigatorObserver>[observer],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(
-        title: 'Semantics',
+        title: 'Semantic Stoic',
         analytics: analytics,
         observer: observer,
       ),
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {
               _launchURL();
             },
-            child: Text('Hi'),
+            child: Text('Bug/Feature Request'),
           ),
         ),
         children: [
