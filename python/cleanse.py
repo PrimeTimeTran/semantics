@@ -14,9 +14,9 @@ with open('../assets/quotes.json') as file:
     }
     i = 1
     for q in data['quotes']:
-        print(i, q['text'])
         lang = translator.detect(q['text'])
-        if lang.lang == 'en' and len(q['text']) <= 500:
+        if lang.lang == 'en' and len(q['text']) <= 350:
+            print(i, len(q['text']),q['text'])
             j['quotes'].append({
                 'id': i,
                 'text': q['text'],

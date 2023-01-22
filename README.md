@@ -18,10 +18,14 @@ samples, guidance on mobile development, and a full API reference.
 
 TODO:
 
-- Add highlight completed portion of string
 - Add completed phrases screen
-- Add saved pharses screen
+- Add saved phrases screen
 - Add metrics screen
 - Add Authentication
 - Add most saved quotes screen
 - Add admin edit screen
+
+DONE:
+
+- Add highlight right portion of string typed
+- Add highlight wrong portion of string typed

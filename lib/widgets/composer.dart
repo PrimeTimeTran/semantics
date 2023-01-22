@@ -139,6 +139,7 @@ class _ComposerState extends State<Composer> {
                 ]);
               }
               return ListTile(
+                
                 title: index == 0 ? newText : SelectableText(t),
                 subtitle: Text(quotes[index].author),
               );
