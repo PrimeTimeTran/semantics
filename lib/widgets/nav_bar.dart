@@ -29,7 +29,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
         ),
         const Icon(Icons.more_vert),
       ],
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.blue,
     );
   }
 }

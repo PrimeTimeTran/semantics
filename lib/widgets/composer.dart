@@ -153,20 +153,18 @@ class _ComposerState extends State<Composer> {
                 var sameChar = textPrefix.length > 0 &&
                     prefix.length > 0 &&
                     textPrefix[idx] == prefix[idx];
-                newText = Flexible(
-                  child: Row(children: [
-                    Text(t.take(idx),
-                        style:
-                            const TextStyle(backgroundColor: Colors.lightBlue)),
-                    idx == length
-                        ? Text('')
-                        : Text(t.from(idx, length),
-                            style: TextStyle(
-                                backgroundColor:
-                                    sameChar ? Colors.lightBlue : Colors.red)),
-                    Text(t.from(0 + length, t.length))
-                  ]),
-                );
+                newText = Row(children: [
+                  Text(t.take(idx),
+                      style:
+                          const TextStyle(backgroundColor: Colors.lightBlue)),
+                  idx == length
+                      ? Text('')
+                      : Text(t.from(idx, length),
+                          style: TextStyle(
+                              backgroundColor:
+                                  sameChar ? Colors.lightBlue : Colors.red)),
+                  Text(t.from(0 + length, t.length))
+                ]);
               }
               return ListTile(
                 title: index == 0 ? newText : SelectableText(t),

@@ -15,9 +15,9 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-
 TODO:
 
+- Add phrases types. ie motivational, stoic, joke, fact, elementary
 - Add completed phrases screen
 - Add saved phrases screen
 - Add metrics screen
