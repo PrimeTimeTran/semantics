@@ -17,6 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 TODO:
 
+- As a user I can change what language I know and what language I want to learn.
 - Add phrases types. ie motivational, stoic, joke, fact, elementary
 - Add completed phrases screen
 - Add saved phrases screen
@@ -27,5 +28,5 @@ TODO:
 
 DONE:
 
-- Add highlight right portion of string typed
-- Add highlight wrong portion of string typed
+- Add highlight right portion of string typed.
+- Add highlight wrong portion of string typed.
