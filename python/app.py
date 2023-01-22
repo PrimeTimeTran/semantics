@@ -1,0 +1,1 @@
+print(len("While he puzzles over increasing his wealth, he forgets how to use it. He collects his accounts, he wears out the pavement in the forum, he turns over his ledger, in short, he ceases to be master and becomes a steward."))

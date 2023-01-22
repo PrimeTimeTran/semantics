@@ -77,7 +77,7 @@ class _ComposerState extends State<Composer> {
     print(q.length.toString());
     print(q[0].id);
     print(q[0].text);
-    q = List.from(q.take(10));
+    q = List.from(q.take(5));
     setState(() {
       quotes = q;
     });
@@ -120,7 +120,7 @@ class _ComposerState extends State<Composer> {
         focused != null
             ? Text(
                 focused.text,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               )
             : Container(),
         TextField(
@@ -156,14 +156,19 @@ class _ComposerState extends State<Composer> {
                 newText = Row(children: [
                   Text(t.take(idx),
                       style:
-                          const TextStyle(backgroundColor: Colors.lightBlue)),
+                          const TextStyle(
+                          backgroundColor: Colors.lightBlue, fontSize: 30)),
                   idx == length
                       ? Text('')
                       : Text(t.from(idx, length),
                           style: TextStyle(
                               backgroundColor:
-                                  sameChar ? Colors.lightBlue : Colors.red)),
-                  Text(t.from(0 + length, t.length))
+                                  sameChar ? Colors.lightBlue : Colors.red,
+                              fontSize: 30)),
+                  Text(
+                    t.from(0 + length, t.length),
+                    style: TextStyle(fontSize: 30),
+                  )
                 ]);
               }
               return ListTile(
