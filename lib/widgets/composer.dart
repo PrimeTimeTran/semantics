@@ -51,13 +51,13 @@ class _ComposerState extends State<Composer> {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   String text = '';
   final TextEditingController _controller = TextEditingController();
-  late Future<List<Quote>> quotes;
+  late List<Quote> quotes = [];
 
   @override
   void initState() {
     super.initState();
     logEvents();
-    quotes = getQuotes();
+    getQuotes();
   }
 
   logEvents() async {
@@ -67,14 +67,28 @@ class _ComposerState extends State<Composer> {
     );
   }
 
-  Future<List<Quote>> getQuotes() async {
+  Future getQuotes() async {
     final String response = await rootBundle.loadString('assets/quotes.json');
     final data = await json.decode(response)['quotes'];
     var q = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
     q.shuffle();
     print(q.length.toString());
     print(q[0].text);
-    return q;
+    q = List.from(q.take(10));
+    setState(() {
+      quotes = q;
+    });
+  }
+
+  checkPhraseCompleted() {
+    if (text == quotes[0].text) {
+      quotes.removeAt(0);
+      setState(() {
+        text = '';
+        quotes = quotes;
+      });
+      _controller.clear();
+    }
   }
 
   @override
@@ -88,6 +102,7 @@ class _ComposerState extends State<Composer> {
             setState(() {
               text = value;
             });
+            checkPhraseCompleted();
           },
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
@@ -96,43 +111,37 @@ class _ComposerState extends State<Composer> {
         ),
         SizedBox(
           height: 550,
-          child: FutureBuilder(
-            future: quotes,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: 20,
-                  itemBuilder: (context, index) {
-                    var t = snapshot.data![index].text;
-                    var newText;
-                    if (index == 0) {
-                      int length = text.length;
-                      var textPrefix = text.take(length);
-                      var prefix = t.take(length);
+          child: ListView.builder(
+            itemCount: quotes.length,
+            itemBuilder: (context, index) {
+              var t = quotes[index].text;
+              var newText;
+              if (index == 0) {
+                int length = text.length;
+                var textPrefix = text.take(length);
+                var prefix = t.take(length);
 
-                      var idx = equalUntil(textPrefix, prefix);
-                      print(idx);
-                      print(length);
-                      newText = Row(children: [
-                        Text(t.take(idx),
-                            style: const TextStyle(
-                                backgroundColor: Colors.lightBlue)),
-                        idx == length ? Text('') : Text(t.from(idx, length),
-                            style:
-                                const TextStyle(backgroundColor: Colors.red)),
-                        Text(t.from(0 + length, t.length))
-                      ]);
-                    }
-                    return ListTile(
-                      leading: const FlutterLogo(),
-                      title: index == 0 ? newText : SelectableText(t),
-                      subtitle: Text(snapshot.data![index].author),
-                    );
-                  },
-                );
-              } else {
-                return const Center(child: Text('Loading'));
+                var idx = equalUntil(textPrefix, prefix);
+                var sameChar = textPrefix.length > 0 &&
+                    prefix.length > 0 &&
+                    textPrefix[idx] == prefix[idx];
+                newText = Row(children: [
+                  Text(t.take(idx),
+                      style:
+                          const TextStyle(backgroundColor: Colors.lightBlue)),
+                  idx == length
+                      ? Text('')
+                      : Text(t.from(idx, length),
+                          style: TextStyle(
+                              backgroundColor:
+                                  sameChar ? Colors.lightBlue : Colors.red)),
+                  Text(t.from(0 + length, t.length))
+                ]);
               }
+              return ListTile(
+                title: index == 0 ? newText : SelectableText(t),
+                subtitle: Text(quotes[index].author),
+              );
             },
           ),
         ),
