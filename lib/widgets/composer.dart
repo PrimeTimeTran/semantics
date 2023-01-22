@@ -117,12 +117,7 @@ class _ComposerState extends State<Composer> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        focused != null
-            ? Text(
-                focused.text,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-              )
-            : Container(),
+        
         TextField(
           autofocus: true,
           controller: _controller,
@@ -137,6 +132,12 @@ class _ComposerState extends State<Composer> {
             hintText: 'Enter a search term',
           ),
         ),
+        focused != null
+            ? Text(
+                focused.text,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              )
+            : Container(),
         SizedBox(
           height: 550,
           child: ListView.builder(
@@ -153,23 +154,25 @@ class _ComposerState extends State<Composer> {
                 var sameChar = textPrefix.length > 0 &&
                     prefix.length > 0 &&
                     textPrefix[idx] == prefix[idx];
-                newText = Row(children: [
-                  Text(t.take(idx),
-                      style:
-                          const TextStyle(
+                newText = RichText(
+                    text: TextSpan(children: [
+                  TextSpan(
+                      text: t.take(idx),
+                      style: const TextStyle(
                           backgroundColor: Colors.lightBlue, fontSize: 30)),
                   idx == length
-                      ? Text('')
-                      : Text(t.from(idx, length),
+                      ? TextSpan(text: '')
+                      : TextSpan(
+                          text: t.from(idx, length),
                           style: TextStyle(
                               backgroundColor:
                                   sameChar ? Colors.lightBlue : Colors.red,
                               fontSize: 30)),
-                  Text(
-                    t.from(0 + length, t.length),
+                  TextSpan(
+                    text: t.from(0 + length, t.length),
                     style: TextStyle(fontSize: 30),
                   )
-                ]);
+                ]));
               }
               return ListTile(
                 title: index == 0 ? newText : SelectableText(t),
