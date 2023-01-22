@@ -52,6 +52,8 @@ class _ComposerState extends State<Composer> {
   String text = '';
   final TextEditingController _controller = TextEditingController();
   late List<Quote> quotes = [];
+  late List<Quote> nativeQuotes = [];
+  Quote focused = Quote(0, '', '');
 
   @override
   void initState() {
@@ -68,15 +70,34 @@ class _ComposerState extends State<Composer> {
   }
 
   Future getQuotes() async {
-    final String response = await rootBundle.loadString('assets/quotes.json');
+    final String response = await rootBundle.loadString('assets/vi.json');
     final data = await json.decode(response)['quotes'];
     var q = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
     q.shuffle();
     print(q.length.toString());
+    print(q[0].id);
     print(q[0].text);
     q = List.from(q.take(10));
     setState(() {
       quotes = q;
+    });
+    getViQuotes();
+  }
+
+  Future getViQuotes() async {
+    final String response = await rootBundle.loadString('assets/en.json');
+    final data = await json.decode(response)['quotes'];
+    var q = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
+    setState(() {
+      nativeQuotes = q;
+    });
+    setFocused();
+  }
+
+  setFocused() {
+    var f = nativeQuotes.firstWhere((element) => element.id == quotes[0].id);
+    setState(() {
+      focused = f;
     });
   }
 
@@ -88,6 +109,7 @@ class _ComposerState extends State<Composer> {
         quotes = quotes;
       });
       _controller.clear();
+      setFocused();
     }
   }
 
@@ -95,6 +117,12 @@ class _ComposerState extends State<Composer> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        focused != null
+            ? Text(
+                focused.text,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              )
+            : Container(),
         TextField(
           autofocus: true,
           controller: _controller,
@@ -125,21 +153,22 @@ class _ComposerState extends State<Composer> {
                 var sameChar = textPrefix.length > 0 &&
                     prefix.length > 0 &&
                     textPrefix[idx] == prefix[idx];
-                newText = Row(children: [
-                  Text(t.take(idx),
-                      style:
-                          const TextStyle(backgroundColor: Colors.lightBlue)),
-                  idx == length
-                      ? Text('')
-                      : Text(t.from(idx, length),
-                          style: TextStyle(
-                              backgroundColor:
-                                  sameChar ? Colors.lightBlue : Colors.red)),
-                  Text(t.from(0 + length, t.length))
-                ]);
+                newText = Flexible(
+                  child: Row(children: [
+                    Text(t.take(idx),
+                        style:
+                            const TextStyle(backgroundColor: Colors.lightBlue)),
+                    idx == length
+                        ? Text('')
+                        : Text(t.from(idx, length),
+                            style: TextStyle(
+                                backgroundColor:
+                                    sameChar ? Colors.lightBlue : Colors.red)),
+                    Text(t.from(0 + length, t.length))
+                  ]),
+                );
               }
               return ListTile(
-                
                 title: index == 0 ? newText : SelectableText(t),
                 subtitle: Text(quotes[index].author),
               );

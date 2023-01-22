@@ -1,28 +1,28 @@
 from googletrans import Translator
+
 import json
 import codecs
 translator = Translator()
 
-dict = {}
-
 translator = Translator()
 
-with open('../assets/quotes.json') as file:
+with open('../assets/en.json') as file:
     data = json.load(file)
     j = {
         'quotes': []
     }
     i = 1
     for q in data['quotes']:
-        lang = translator.detect(q['text'])
-        if lang.lang == 'en' and len(q['text']) <= 350:
-            print(i, len(q['text']),q['text'])
+        t = q['text']
+        lang = translator.detect(t)
+        if lang.lang == 'en' and len(t) <= 300:
+            print(i, len(t), t)
             j['quotes'].append({
                 'id': i,
-                'text': q['text'],
+                'text': t,
                 'author': q['author']
             })
-            i+=1
+            i += 1
 
-    with codecs.open("output.json", "w", encoding='utf8') as f:
+    with codecs.open("en.json", "w", encoding='utf8') as f:
         json.dump(j, f, ensure_ascii=False)

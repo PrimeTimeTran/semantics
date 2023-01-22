@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:footer/footer.dart';
+import 'package:footer/footer_view.dart';
 
 import 'package:semantic/widgets/composer.dart';
 import 'package:semantic/widgets/my_drawer.dart';
@@ -59,7 +62,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   void dispose() {
     super.dispose();
@@ -78,22 +80,41 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  _launchURL() async {
+    const url =
+        'https://docs.google.com/forms/d/e/1FAIpQLSekPhYKaREo9vzxXcVzux0Ej-loEzLSWI9LGU2tow9vLce1Tg/viewform';
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const Navbar(),
       drawer: const MyDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(100.0),
-        child: Column(
-          children: <Widget>[
-            MaterialButton(
-              onPressed: logEvents,
-              child: const Text('Test standard event types'),
-            ),
-            const Composer(),
-          ],
+      body: FooterView(
+        footer: Footer(
+          child: GestureDetector(
+            onTap: () {
+              _launchURL();
+            },
+            child: Text('Hi'),
+          ),
         ),
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(100.0),
+            child: Column(
+              children: <Widget>[
+                const Composer(),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
