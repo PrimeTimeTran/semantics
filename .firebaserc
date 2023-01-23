@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "semantics-learn",
+    "default": "semantic-stoic",
     "prod": "semantic-stoic"
   },
   "targets": {},
