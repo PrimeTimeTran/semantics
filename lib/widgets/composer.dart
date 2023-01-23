@@ -139,8 +139,8 @@ class _ComposerState extends State<Composer> {
     var prefix = t.take(length);
 
     var idx = equalUntil(textPrefix, prefix);
-    var sameChar = textPrefix.length > 0 &&
-        prefix.length > 0 &&
+    var sameChar = textPrefix.isNotEmpty &&
+        prefix.isNotEmpty &&
         textPrefix[idx] == prefix[idx];
     newText = RichText(
       textAlign: TextAlign.center,
@@ -153,7 +153,7 @@ class _ComposerState extends State<Composer> {
               text: t.take(idx),
               style: const TextStyle(backgroundColor: Colors.lightBlue)),
           idx == length
-              ? TextSpan(text: '')
+              ? const TextSpan(text: '')
               : TextSpan(
                   text: t.from(idx, length),
                   style: TextStyle(
@@ -170,52 +170,48 @@ class _ComposerState extends State<Composer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(150),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  translatedQuote.text,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+    return Padding(
+      padding: const EdgeInsets.all(150),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                translatedQuote.text,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Align(
+              child: SizedBox(
+                child: getHighlightedText(),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Align(
+              child: TextField(
+                autofocus: true,
+                controller: _controller,
+                onChanged: (String value) async {
+                  setState(() {
+                    text = value;
+                  });
+                  checkPhraseCompleted();
+                },
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: '',
                 ),
               ),
             ),
-            Expanded(
-              child: Align(
-                child: SizedBox(
-                  child: getHighlightedText(),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: Align(
-                  child: TextField(
-                    autofocus: true,
-                    controller: _controller,
-                    onChanged: (String value) async {
-                      setState(() {
-                        text = value;
-                      });
-                      checkPhraseCompleted();
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: '',
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            DropdownButtonExample(changeLanguage: changeLanguage),
-          ],
-        ),
+          ),
+          DropdownButtonExample(changeLanguage: changeLanguage),
+        ],
       ),
     );
   }
