@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:semantic/widgets/composer.dart';
+import 'package:semantic/widgets/dashboard.dart';
+
 class MyDrawer extends StatefulWidget {
-  const MyDrawer({super.key});
+  MyDrawer({super.key, required this.drawerChange});
+
+  Function drawerChange;
 
   @override
   State<MyDrawer> createState() => _MyDrawerState();
@@ -18,15 +23,21 @@ class _MyDrawerState extends State<MyDrawer> {
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
-            child: Text('Drawer Header'),
+            child: Text('Semantic Stoic'),
           ),
           ListTile(
-            title: const Text('Item 1'),
-            onTap: () {},
+            title: const Text('Home'),
+            onTap: () {
+              widget.drawerChange(Composer());
+              Navigator.pop(context);
+            },
           ),
           ListTile(
-            title: const Text('Item 2'),
-            onTap: () {},
+            title: const Text('Dashboard'),
+            onTap: () {
+              widget.drawerChange(Dashboard());
+              Navigator.pop(context);
+            },
           ),
         ],
       ),

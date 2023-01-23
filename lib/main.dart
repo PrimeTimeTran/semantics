@@ -5,7 +5,6 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:footer/footer.dart';
 
 import 'package:semantic/widgets/composer.dart';
 import 'package:semantic/widgets/my_drawer.dart';
@@ -45,7 +44,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({
+  const MyHomePage({
     Key? key,
     required this.title,
     required this.analytics,
@@ -57,14 +56,28 @@ class MyHomePage extends StatefulWidget {
   final FirebaseAnalyticsObserver observer;
 
   @override
+  // ignore: library_private_types_in_public_api
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Widget body = const Composer();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   void dispose() {
     super.dispose();
     logEvents();
+  }
+
+  drawerChange(v) {
+    setState(() {
+      body = v;
+    });
   }
 
   Future<void> logEvents() async {
@@ -72,11 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
     await widget.analytics.logScreenView(
       screenName: 'quotes-page',
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   _launchURL() async {
@@ -94,13 +102,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const Navbar(),
-      drawer: const MyDrawer(),
+      drawer: MyDrawer(drawerChange: drawerChange),
       body: Column(
         children: <Widget>[
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(150, 10, 150, 10),
-              child: Composer(),
+              padding: EdgeInsets.fromLTRB(150, 10, 150, 10),
+              child: body,
             ),
           ),
           Container(
