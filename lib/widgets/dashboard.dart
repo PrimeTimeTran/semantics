@@ -3,7 +3,8 @@ import 'dart:convert';
 
 import 'package:semantic/widgets/utils.dart';
 
-import 'composer.dart';
+import 'package:semantic/classes/quote.dart';
+
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -35,18 +36,16 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Container(
-          child: SizedBox(
-            height: 500,
-            child: ListView.builder(
-              itemCount: quotes.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(quotes[index].text),
-                  subtitle: Text(quotes[index].author),
-                );
-              },
-            ),
+        SizedBox(
+          height: 500,
+          child: ListView.builder(
+            itemCount: quotes.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(quotes[index].text),
+                subtitle: Text(quotes[index].author),
+              );
+            },
           ),
         ),
       ],

@@ -4,7 +4,6 @@ import 'dart:convert';
 final Storage _localStorage = window.localStorage;
 
 Future saveAsCompleted(q) async {
-  print('saveAsCompleted');
   var l = _localStorage['quotes'] ?? jsonEncode([]);
 
   var prev = jsonDecode(l);

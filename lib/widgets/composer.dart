@@ -4,44 +4,12 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
+import 'package:semantic/widgets/highlighted_text.dart';
 import 'package:semantic/widgets/language_select.dart';
+
 import 'package:semantic/widgets/utils.dart';
 
-extension StringX on String {
-  String take(int nbChars) => substring(0, nbChars.clamp(0, length));
-  String from(int nbChars, int typeLength) => substring(nbChars, typeLength);
-}
-
-equalUntil(s1, s2) {
-  var idx = 0;
-  for (var i = 0; i < s1.length; i++) {
-    for (var j = 0; j < s2.length; j++) {
-      if (s1.substring(0, i) == s2.substring(0, j)) {
-        idx = i;
-      }
-    }
-  }
-  return idx;
-}
-
-class Quote {
-  final int id;
-  final String text;
-  final String author;
-
-  Quote(this.id, this.text, this.author);
-
-  Quote.fromJson(Map<String, dynamic> json)
-      : text = json['text'],
-        author = json['author'],
-        id = json['id'];
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'text': text,
-        'author': author,
-      };
-}
+import 'package:semantic/classes/quote.dart';
 
 class Composer extends StatefulWidget {
   const Composer({Key? key}) : super(key: key);
@@ -133,43 +101,6 @@ class _ComposerState extends State<Composer> {
     }
   }
 
-  getHighlightedText() {
-    var t = quote.text;
-    RichText newText;
-    int length = text.length;
-    var textPrefix = text.take(length);
-    var prefix = t.take(length);
-
-    var idx = equalUntil(textPrefix, prefix);
-    var sameChar = textPrefix.isNotEmpty &&
-        prefix.isNotEmpty &&
-        textPrefix[idx] == prefix[idx];
-    newText = RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        style: const TextStyle(
-          fontSize: 35,
-        ),
-        children: [
-          TextSpan(
-              text: t.take(idx),
-              style: const TextStyle(backgroundColor: Colors.lightBlue)),
-          idx == length
-              ? const TextSpan(text: '')
-              : TextSpan(
-                  text: t.from(idx, length),
-                  style: TextStyle(
-                      backgroundColor:
-                          sameChar ? Colors.lightBlue : Colors.red)),
-          TextSpan(
-            text: t.from(0 + length, t.length),
-          )
-        ],
-      ),
-    );
-    return newText;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -190,7 +121,7 @@ class _ComposerState extends State<Composer> {
           Expanded(
             child: Align(
               child: SizedBox(
-                child: getHighlightedText(),
+                child: HighlightedText(quote, text),
               ),
             ),
           ),

@@ -4,9 +4,9 @@ import 'package:semantic/widgets/composer.dart';
 import 'package:semantic/widgets/dashboard.dart';
 
 class MyDrawer extends StatefulWidget {
-  MyDrawer({super.key, required this.drawerChange});
+  const MyDrawer({super.key, required this.drawerChange});
 
-  Function drawerChange;
+  final Function drawerChange;
 
   @override
   State<MyDrawer> createState() => _MyDrawerState();
@@ -28,14 +28,14 @@ class _MyDrawerState extends State<MyDrawer> {
           ListTile(
             title: const Text('Home'),
             onTap: () {
-              widget.drawerChange(Composer());
+              widget.drawerChange(const Composer());
               Navigator.pop(context);
             },
           ),
           ListTile(
             title: const Text('Dashboard'),
             onTap: () {
-              widget.drawerChange(Dashboard());
+              widget.drawerChange(const Dashboard());
               Navigator.pop(context);
             },
           ),

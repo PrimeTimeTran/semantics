@@ -1,6 +1,4 @@
-b# semantic
-
-Semantic Stoic
+# Semantic Stoic
 
 ## Getting Started
 
@@ -17,16 +15,42 @@ samples, guidance on mobile development, and a full API reference.
 
 Backlog:
 
+- Create todo list.
+- Add saved phrases screen.
+- Add metrics screen.
+- Add Authentication.
+- Add most saved quotes screen.
+- Add admin edit screen.
 - Add phrases types. ie motivational, stoic, joke, fact, elementary
-- Add completed phrases screen
-- Add saved phrases screen
-- Add metrics screen
-- Add Authentication
-- Add most saved quotes screen
-- Add admin edit screen
 
 Done:
 
 - Add highlight right portion of string typed.
 - Add highlight wrong portion of string typed.
 - As a user I can choose language I'm practicing. vi, es, zh, etc.
+- Add completed phrases screen
+
+app = {
+  currentUser: {
+    favorites: [],
+    completed: [],
+    decks: [],
+  },
+  deck: {
+    name: '',
+    quotes: [],
+  },
+  quote: {
+    text: '',
+    last: '',
+    next: '',
+    author: '',
+  },
+  notions: {
+    pages: [],
+  },
+  class Todo {
+    String body;
+    bool done;
+  }
+}
