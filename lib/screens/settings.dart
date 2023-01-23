@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:semantic/utils/firebase.dart';
+
 class Settings extends StatefulWidget {
   const Settings({super.key});
 
@@ -10,6 +12,12 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  @override
+  void initState() {
+    super.initState();
+    FB.pageView('settings');
+  }
+
   Future<void> signInWithGoogle() async {
     GoogleAuthProvider googleProvider = GoogleAuthProvider();
 

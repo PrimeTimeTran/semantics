@@ -69,6 +69,5 @@ class _QuotePanelState extends State<QuotePanel> {
         ],
       ),
     );
-    ;
   }
 }
