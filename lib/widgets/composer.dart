@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'package:semantic/widgets/language_select.dart';
+import 'package:semantic/widgets/utils.dart';
 
 extension StringX on String {
   String take(int nbChars) => substring(0, nbChars.clamp(0, length));
@@ -125,6 +126,7 @@ class _ComposerState extends State<Composer> {
 
   checkPhraseCompleted() {
     if (text == quote.text || text == 'lt') {
+      saveAsCompleted(quote.toJson());
       getQuotes();
       _controller.clear();
       setTranslatedQuote();
