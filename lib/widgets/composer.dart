@@ -51,14 +51,15 @@ class Composer extends StatefulWidget {
 
 class _ComposerState extends State<Composer> {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  String text = '';
   final TextEditingController _controller = TextEditingController();
 
   late List<Quote> quotes = [];
-  late List<Quote> nativeQuotes = [];
+  late List<Quote> translatedQuotes = [];
 
-  Quote focused = Quote(0, '', '');
   Quote quote = Quote(0, '', '');
+  Quote translatedQuote = Quote(0, '', '');
+
+  String text = '';
   String language = 'vi';
 
   @override
@@ -102,23 +103,23 @@ class _ComposerState extends State<Composer> {
       quotes = quotes;
       quote = quotes[0];
     });
-    getViQuotes();
+    setTranslatedQuotes();
   }
 
-  Future getViQuotes() async {
+  Future setTranslatedQuotes() async {
     final String response = await rootBundle.loadString('assets/en.json');
     final data = await json.decode(response)['quotes'];
     var quotes = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
     setState(() {
-      nativeQuotes = quotes;
+      translatedQuotes = quotes;
     });
-    setFocused();
+    setTranslatedQuote();
   }
 
-  setFocused() {
-    var f = nativeQuotes.firstWhere((e) => e.id == quote.id);
+  setTranslatedQuote() {
+    var q = translatedQuotes.firstWhere((e) => e.id == quote.id);
     setState(() {
-      focused = f;
+      translatedQuote = q;
     });
   }
 
@@ -126,7 +127,7 @@ class _ComposerState extends State<Composer> {
     if (text == quote.text || text == 'magic') {
       getQuotes();
       _controller.clear();
-      setFocused();
+      setTranslatedQuote();
     }
   }
 
@@ -167,13 +168,11 @@ class _ComposerState extends State<Composer> {
 
   @override
   Widget build(BuildContext context) {
-    print('loi');
-    print(focused.text);
     return Column(
       children: <Widget>[
         DropdownButtonExample(changeLanguage: changeLanguage),
         Text(
-          focused.text,
+          translatedQuote.text,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
         ),
         SizedBox(
