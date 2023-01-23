@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({
+  MyHomePage({
     Key? key,
     required this.title,
     required this.analytics,
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () {
               _launchURL();
             },
-            child: Text('Bug/Feature Request'),
+            child: const Text('Bug/Feature Request'),
           ),
         ),
         children: [

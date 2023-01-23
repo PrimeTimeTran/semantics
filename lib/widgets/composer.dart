@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
+import 'package:semantic/widgets/language_select.dart';
+
 extension StringX on String {
   String take(int nbChars) => substring(0, nbChars.clamp(0, length));
   String from(int nbChars, int typeLength) => substring(nbChars, typeLength);
@@ -54,6 +56,7 @@ class _ComposerState extends State<Composer> {
   late List<Quote> quotes = [];
   late List<Quote> nativeQuotes = [];
   Quote focused = Quote(0, '', '');
+  String language = 'vi';
 
   @override
   void initState() {
@@ -62,22 +65,37 @@ class _ComposerState extends State<Composer> {
     getQuotes();
   }
 
+  changeLanguage(v) {
+    print('changing');
+    if (v == 'Vietnamese 🇻🇳') {
+      v = 'vi';
+    } else if (v == 'Spanish 🇪🇸') {
+      v = 'es';
+    } else if (v == 'Chinese 🇨🇳') {
+      v = 'zh-cn';
+    }
+
+    setState(() {
+      language = v;
+    });
+    getQuotes();
+  }
+
   logEvents() async {
     await analytics.logAppOpen();
     await analytics.logScreenView(
       screenName: 'quotes-page',
     );
+    getQuotes();
   }
 
   Future getQuotes() async {
-    final String response = await rootBundle.loadString('assets/vi.json');
+    final String response =
+        await rootBundle.loadString('assets/$language.json');
     final data = await json.decode(response)['quotes'];
     var q = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
     q.shuffle();
-    print(q.length.toString());
-    print(q[0].id);
-    print(q[0].text);
-    q = List.from(q.take(5));
+    q = List.from(q.take(1));
     setState(() {
       quotes = q;
     });
@@ -117,21 +135,7 @@ class _ComposerState extends State<Composer> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        
-        TextField(
-          autofocus: true,
-          controller: _controller,
-          onChanged: (String value) async {
-            setState(() {
-              text = value;
-            });
-            checkPhraseCompleted();
-          },
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Enter a search term',
-          ),
-        ),
+        DropdownButtonExample(changeLanguage: changeLanguage),
         focused != null
             ? Text(
                 focused.text,
@@ -179,6 +183,20 @@ class _ComposerState extends State<Composer> {
                 subtitle: Text(quotes[index].author),
               );
             },
+          ),
+        ),
+        TextField(
+          autofocus: true,
+          controller: _controller,
+          onChanged: (String value) async {
+            setState(() {
+              text = value;
+            });
+            checkPhraseCompleted();
+          },
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: '',
           ),
         ),
       ],

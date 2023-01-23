@@ -17,7 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 TODO:
 
-- As a user I can change what language I know and what language I want to learn.
+- As a user I can choose language I'm practicing. vi, es, zh, etc.
 - Add phrases types. ie motivational, stoic, joke, fact, elementary
 - Add completed phrases screen
 - Add saved phrases screen

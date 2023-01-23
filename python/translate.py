@@ -14,7 +14,7 @@ with open('../assets/en.json') as file:
     maxLength = 0
     for q in data['quotes']:
         text = q['text'].strip()
-        text = translator.translate(text, src='en', dest='vi')
+        text = translator.translate(text, src='en', dest='zh-cn')
         maxLength = max(len(text.text), maxLength)
         print(i, len(text.text), maxLength, text.text)
         j['quotes'].append({
@@ -23,5 +23,5 @@ with open('../assets/en.json') as file:
             'author': q['author']
         })
         i += 1
-        with codecs.open("vi.json", "w", encoding='utf8') as f:
+        with codecs.open("zh-cn.json", "w", encoding='utf8') as f:
             json.dump(j, f, ensure_ascii=False)
