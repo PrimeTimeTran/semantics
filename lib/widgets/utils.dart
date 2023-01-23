@@ -1,3 +1,4 @@
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 import 'dart:convert';
 
@@ -15,4 +16,15 @@ Future saveAsCompleted(q) async {
 Future readCompleted() async {
   var l = _localStorage['quotes'] ?? jsonEncode([]);
   return l;
+}
+
+changeLangTo(v) {
+  if (v == 'Vietnamese 🇻🇳') {
+    v = 'vi';
+  } else if (v == 'Spanish 🇪🇸') {
+    v = 'es';
+  } else if (v == 'Chinese 🇨🇳') {
+    v = 'zh-cn';
+  }
+  return v;
 }

@@ -34,21 +34,22 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SizedBox(
-          height: 500,
-          child: ListView.builder(
-            itemCount: quotes.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(quotes[index].text),
-                subtitle: Text(quotes[index].author),
-              );
-            },
+    return SafeArea(
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+              itemCount: quotes.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(quotes[index].text),
+                  subtitle: Text(quotes[index].author),
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

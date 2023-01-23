@@ -24,7 +24,6 @@ class HighlightedText extends StatelessWidget {
 
   final Quote quote;
   final String text;
-  // final String prefix;
 
   @override
   Widget build(BuildContext context) {

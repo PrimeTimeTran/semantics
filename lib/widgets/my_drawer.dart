@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:semantic/widgets/composer.dart';
-import 'package:semantic/widgets/dashboard.dart';
+import 'package:semantic/screens/composer.dart';
+import 'package:semantic/screens/dashboard.dart';
+import 'package:semantic/screens/settings.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key, required this.drawerChange});
@@ -33,9 +34,16 @@ class _MyDrawerState extends State<MyDrawer> {
             },
           ),
           ListTile(
-            title: const Text('Dashboard'),
+            title: const Text('Completed'),
             onTap: () {
               widget.drawerChange(const Dashboard());
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: const Text('Settings'),
+            onTap: () {
+              widget.drawerChange(const Settings());
               Navigator.pop(context);
             },
           ),

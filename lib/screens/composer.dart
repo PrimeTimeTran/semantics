@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-import 'package:semantic/widgets/highlighted_text.dart';
-import 'package:semantic/widgets/language_select.dart';
-
 import 'package:semantic/widgets/utils.dart';
+import 'package:semantic/widgets/quote_panel.dart';
 
 import 'package:semantic/classes/quote.dart';
 
@@ -20,7 +17,6 @@ class Composer extends StatefulWidget {
 
 class _ComposerState extends State<Composer> {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  final TextEditingController _controller = TextEditingController();
 
   late List<Quote> quotes = [];
   late List<Quote> translatedQuotes = [];
@@ -39,14 +35,7 @@ class _ComposerState extends State<Composer> {
   }
 
   changeLanguage(v) {
-    if (v == 'Vietnamese 🇻🇳') {
-      v = 'vi';
-    } else if (v == 'Spanish 🇪🇸') {
-      v = 'es';
-    } else if (v == 'Chinese 🇨🇳') {
-      v = 'zh-cn';
-    }
-
+    v = changeLangTo(v);
     setState(() {
       language = v;
     });
@@ -61,7 +50,7 @@ class _ComposerState extends State<Composer> {
     getQuotes();
   }
 
-  Future getQuotes() async {
+  getQuotes() async {
     final String response =
         await rootBundle.loadString('assets/$language.json');
     final data = await json.decode(response)['quotes'];
@@ -74,7 +63,7 @@ class _ComposerState extends State<Composer> {
     setTranslatedQuotes();
   }
 
-  Future setTranslatedQuotes() async {
+  setTranslatedQuotes() async {
     final String response = await rootBundle.loadString('assets/en.json');
     final data = await json.decode(response)['quotes'];
     var quotes = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
@@ -92,60 +81,20 @@ class _ComposerState extends State<Composer> {
     });
   }
 
-  checkPhraseCompleted() {
+  checkPhraseCompleted(v) {
+    setState(() {
+      text = v;
+    });
     if (text == quote.text || text == 'lt') {
       saveAsCompleted(quote.toJson());
       getQuotes();
-      _controller.clear();
       setTranslatedQuote();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(150),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                translatedQuote.text,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Align(
-              child: SizedBox(
-                child: HighlightedText(quote, text),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Align(
-              child: TextField(
-                autofocus: true,
-                controller: _controller,
-                onChanged: (String value) async {
-                  setState(() {
-                    text = value;
-                  });
-                  checkPhraseCompleted();
-                },
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: '',
-                ),
-              ),
-            ),
-          ),
-          DropdownButtonExample(changeLanguage: changeLanguage),
-        ],
-      ),
-    );
+    return QuotePanel(
+        quote, text, translatedQuote, changeLanguage, checkPhraseCompleted);
   }
 }

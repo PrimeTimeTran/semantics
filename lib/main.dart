@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'package:semantic/widgets/nav_bar.dart';
-import 'package:semantic/widgets/composer.dart';
+import 'package:semantic/screens/composer.dart';
 import 'package:semantic/widgets/my_drawer.dart';
 
 Future<void> main() async {
@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future<void> logEvents() async {
+  logEvents() async {
     await widget.analytics.logAppOpen();
     await widget.analytics.logScreenView(
       screenName: 'quotes-page',
@@ -107,58 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Future<void> signInWithGoogle() async {
-    GoogleAuthProvider googleProvider = GoogleAuthProvider();
-
-    // googleProvider
-    //     .addScope('https://www.googleapis.com/auth/contacts.readonly');
-    // googleProvider.setCustomParameters({'login_hint': 'user@example.com'});
-
-    // // Once signed in, return the UserCredential
-    // return await FirebaseAuth.instance.signInWithPopup(googleProvider);
-
-    // // Or use signInWithRedirect
-
-    return await FirebaseAuth.instance.signInWithRedirect(googleProvider);
-  }
-
-  createAccount() async {
-    try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: 'loi@semantic-stoic.com',
-        password: 'asdfas',
-      );
-      print(credential);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  signIn() async {
-    try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: 'loi@semantic-stoic.com',
-        password: 'asdfas',
-      );
-      print(credential);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,25 +114,6 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: MyDrawer(drawerChange: drawerChange),
       body: Column(
         children: <Widget>[
-          Text('Hi'),
-          MaterialButton(
-            child: Text('Google Signin'),
-            onPressed: () {
-              signInWithGoogle();
-            },
-          ),
-          MaterialButton(
-            child: Text('Create Account'),
-            onPressed: () {
-              createAccount();
-            },
-          ),
-          MaterialButton(
-            child: Text('Signin'),
-            onPressed: () {
-              signIn();
-            },
-          ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.fromLTRB(150, 10, 150, 10),
