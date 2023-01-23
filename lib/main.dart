@@ -6,7 +6,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:footer/footer.dart';
-import 'package:footer/footer_view.dart';
 
 import 'package:semantic/widgets/composer.dart';
 import 'package:semantic/widgets/my_drawer.dart';
@@ -96,26 +95,26 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: const Navbar(),
       drawer: const MyDrawer(),
-      body: FooterView(
-        footer: Footer(
-          child: Center(
-            child: GestureDetector(
-              onTap: () {
-                _launchURL();
-              },
-              child: const Text('Bug/Feature Request'),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(100.0),
+              child: Composer(),
             ),
           ),
-        ),
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(100.0),
-            child: Column(
-              children: <Widget>[
-                const Composer(),
-              ],
+          Container(
+            height: 50,
+            color: Colors.grey.shade200,
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  _launchURL();
+                },
+                child: const Text('Bug/Feature Request'),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );

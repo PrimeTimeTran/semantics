@@ -111,6 +111,7 @@ class _ComposerState extends State<Composer> {
     final data = await json.decode(response)['quotes'];
     var quotes = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
     setState(() {
+      text = '';
       translatedQuotes = quotes;
     });
     setTranslatedQuote();
@@ -168,33 +169,46 @@ class _ComposerState extends State<Composer> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        DropdownButtonExample(changeLanguage: changeLanguage),
-        Text(
-          translatedQuote.text,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-        ),
-        SizedBox(
-          child: Container(
-            child: getHighlightedText(),
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                translatedQuote.text,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              ),
+            ),
           ),
-        ),
-        TextField(
-          autofocus: true,
-          controller: _controller,
-          onChanged: (String value) async {
-            setState(() {
-              text = value;
-            });
-            checkPhraseCompleted();
-          },
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: '',
+          Expanded(
+            child: Align(
+              alignment: Alignment.center           ,
+              child: SizedBox(
+                child: getHighlightedText(),
+              ),
+            ),
           ),
-        ),
-      ],
+          Expanded(
+            child: TextField(
+              autofocus: true,
+              controller: _controller,
+              onChanged: (String value) async {
+                setState(() {
+                  text = value;
+                });
+                checkPhraseCompleted();
+              },
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: '',
+              ),
+            ),
+          ),
+          DropdownButtonExample(changeLanguage: changeLanguage),
+        ],
+      ),
     );
   }
 }
