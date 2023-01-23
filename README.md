@@ -1,4 +1,4 @@
-# semantic
+b# semantic
 
 Semantic Stoic
 
@@ -15,9 +15,8 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-TODO:
+Backlog:
 
-- As a user I can choose language I'm practicing. vi, es, zh, etc.
 - Add phrases types. ie motivational, stoic, joke, fact, elementary
 - Add completed phrases screen
 - Add saved phrases screen
@@ -26,7 +25,8 @@ TODO:
 - Add most saved quotes screen
 - Add admin edit screen
 
-DONE:
+Done:
 
 - Add highlight right portion of string typed.
 - Add highlight wrong portion of string typed.
+- As a user I can choose language I'm practicing. vi, es, zh, etc.
