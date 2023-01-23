@@ -53,9 +53,12 @@ class _ComposerState extends State<Composer> {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   String text = '';
   final TextEditingController _controller = TextEditingController();
+
   late List<Quote> quotes = [];
   late List<Quote> nativeQuotes = [];
+
   Quote focused = Quote(0, '', '');
+  Quote quote = Quote(0, '', '');
   String language = 'vi';
 
   @override
@@ -93,11 +96,11 @@ class _ComposerState extends State<Composer> {
     final String response =
         await rootBundle.loadString('assets/$language.json');
     final data = await json.decode(response)['quotes'];
-    var q = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
-    q.shuffle();
-    q = List.from(q.take(1));
+    var quotes = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
+    quotes.shuffle();
     setState(() {
-      quotes = q;
+      quotes = quotes;
+      quote = quotes[0];
     });
     getViQuotes();
   }
@@ -105,84 +108,77 @@ class _ComposerState extends State<Composer> {
   Future getViQuotes() async {
     final String response = await rootBundle.loadString('assets/en.json');
     final data = await json.decode(response)['quotes'];
-    var q = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
+    var quotes = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
     setState(() {
-      nativeQuotes = q;
+      nativeQuotes = quotes;
     });
     setFocused();
   }
 
   setFocused() {
-    var f = nativeQuotes.firstWhere((element) => element.id == quotes[0].id);
+    var f = nativeQuotes.firstWhere((e) => e.id == quote.id);
     setState(() {
       focused = f;
     });
   }
 
   checkPhraseCompleted() {
-    if (text == quotes[0].text) {
-      quotes.removeAt(0);
-      setState(() {
-        text = '';
-        quotes = quotes;
-      });
+    if (text == quote.text || text == 'magic') {
+      getQuotes();
       _controller.clear();
       setFocused();
     }
   }
 
+  getHighlightedText() {
+    var t = quote.text;
+    RichText newText;
+    int length = text.length;
+    var textPrefix = text.take(length);
+    var prefix = t.take(length);
+
+    var idx = equalUntil(textPrefix, prefix);
+    var sameChar = textPrefix.length > 0 &&
+        prefix.length > 0 &&
+        textPrefix[idx] == prefix[idx];
+    newText = RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+              text: t.take(idx),
+              style: const TextStyle(
+                  backgroundColor: Colors.lightBlue, fontSize: 30)),
+          idx == length
+              ? TextSpan(text: '')
+              : TextSpan(
+                  text: t.from(idx, length),
+                  style: TextStyle(
+                      backgroundColor: sameChar ? Colors.lightBlue : Colors.red,
+                      fontSize: 30)),
+          TextSpan(
+            text: t.from(0 + length, t.length),
+            style: TextStyle(fontSize: 30),
+          )
+        ],
+      ),
+    );
+    return newText;
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('loi');
+    print(focused.text);
     return Column(
       children: <Widget>[
         DropdownButtonExample(changeLanguage: changeLanguage),
-        focused != null
-            ? Text(
-                focused.text,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-              )
-            : Container(),
+        Text(
+          focused.text,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+        ),
         SizedBox(
-          height: 550,
-          child: ListView.builder(
-            itemCount: quotes.length,
-            itemBuilder: (context, index) {
-              var t = quotes[index].text;
-              var newText;
-              if (index == 0) {
-                int length = text.length;
-                var textPrefix = text.take(length);
-                var prefix = t.take(length);
-
-                var idx = equalUntil(textPrefix, prefix);
-                var sameChar = textPrefix.length > 0 &&
-                    prefix.length > 0 &&
-                    textPrefix[idx] == prefix[idx];
-                newText = RichText(
-                    text: TextSpan(children: [
-                  TextSpan(
-                      text: t.take(idx),
-                      style: const TextStyle(
-                          backgroundColor: Colors.lightBlue, fontSize: 30)),
-                  idx == length
-                      ? TextSpan(text: '')
-                      : TextSpan(
-                          text: t.from(idx, length),
-                          style: TextStyle(
-                              backgroundColor:
-                                  sameChar ? Colors.lightBlue : Colors.red,
-                              fontSize: 30)),
-                  TextSpan(
-                    text: t.from(0 + length, t.length),
-                    style: TextStyle(fontSize: 30),
-                  )
-                ]));
-              }
-              return ListTile(
-                title: index == 0 ? newText : SelectableText(t),
-                subtitle: Text(quotes[index].author),
-              );
-            },
+          child: Container(
+            child: getHighlightedText(),
           ),
         ),
         TextField(

@@ -98,11 +98,13 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: const MyDrawer(),
       body: FooterView(
         footer: Footer(
-          child: GestureDetector(
-            onTap: () {
-              _launchURL();
-            },
-            child: const Text('Bug/Feature Request'),
+          child: Center(
+            child: GestureDetector(
+              onTap: () {
+                _launchURL();
+              },
+              child: const Text('Bug/Feature Request'),
+            ),
           ),
         ),
         children: [
