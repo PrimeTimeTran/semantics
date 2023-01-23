@@ -99,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(100.0),
+              padding: const EdgeInsets.fromLTRB(150, 10, 150, 10),
               child: Composer(),
             ),
           ),

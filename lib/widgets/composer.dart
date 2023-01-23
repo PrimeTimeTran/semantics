@@ -70,7 +70,6 @@ class _ComposerState extends State<Composer> {
   }
 
   changeLanguage(v) {
-    print('changing');
     if (v == 'Vietnamese 🇻🇳') {
       v = 'vi';
     } else if (v == 'Spanish 🇪🇸') {
@@ -125,7 +124,7 @@ class _ComposerState extends State<Composer> {
   }
 
   checkPhraseCompleted() {
-    if (text == quote.text || text == 'magic') {
+    if (text == quote.text || text == 'lt') {
       getQuotes();
       _controller.clear();
       setTranslatedQuote();
@@ -144,22 +143,24 @@ class _ComposerState extends State<Composer> {
         prefix.length > 0 &&
         textPrefix[idx] == prefix[idx];
     newText = RichText(
+      textAlign: TextAlign.center,
       text: TextSpan(
+        style: const TextStyle(
+          fontSize: 35,
+        ),
         children: [
           TextSpan(
               text: t.take(idx),
-              style: const TextStyle(
-                  backgroundColor: Colors.lightBlue, fontSize: 30)),
+              style: const TextStyle(backgroundColor: Colors.lightBlue)),
           idx == length
               ? TextSpan(text: '')
               : TextSpan(
                   text: t.from(idx, length),
                   style: TextStyle(
-                      backgroundColor: sameChar ? Colors.lightBlue : Colors.red,
-                      fontSize: 30)),
+                      backgroundColor:
+                          sameChar ? Colors.lightBlue : Colors.red)),
           TextSpan(
             text: t.from(0 + length, t.length),
-            style: TextStyle(fontSize: 30),
           )
         ],
       ),
@@ -170,44 +171,51 @@ class _ComposerState extends State<Composer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                translatedQuote.text,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+      child: Padding(
+        padding: const EdgeInsets.all(150),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  translatedQuote.text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.center           ,
-              child: SizedBox(
-                child: getHighlightedText(),
+            Expanded(
+              child: Align(
+                child: SizedBox(
+                  child: getHighlightedText(),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: TextField(
-              autofocus: true,
-              controller: _controller,
-              onChanged: (String value) async {
-                setState(() {
-                  text = value;
-                });
-                checkPhraseCompleted();
-              },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: '',
+            Expanded(
+              child: Container(
+                child: Align(
+                  child: TextField(
+                    autofocus: true,
+                    controller: _controller,
+                    onChanged: (String value) async {
+                      setState(() {
+                        text = value;
+                      });
+                      checkPhraseCompleted();
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: '',
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
-          DropdownButtonExample(changeLanguage: changeLanguage),
-        ],
+            DropdownButtonExample(changeLanguage: changeLanguage),
+          ],
+        ),
       ),
     );
   }
