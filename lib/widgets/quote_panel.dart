@@ -58,7 +58,7 @@ class _QuotePanelState extends State<QuotePanel> {
                 autofocus: true,
                 controller: _controller,
                 onChanged: (String value) async {
-                  if (value == widget.quote.text || value == 'lt') {
+                  if (value == widget.translatedQuote.text || value == 'lt') {
                     _controller.clear();
                   }
                   widget.checkPhraseCompleted(value);
