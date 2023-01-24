@@ -1,5 +1,6 @@
 # Semantic Stoic
 
+Quizlet/Kahoot/Duolingo/LeetCode tool for learning a language and mental health/Blinkist//content
 
 ## Dependencies
 
@@ -7,14 +8,15 @@
 - Flutter
 - Firebase CLI
 
+# WIP 
+- [x] Add feed page
+- [] Next video when question completed
+- [] As a user I must answer a question on each video. May have different levels, easy, medium, hard.
+- [] Multiple questions on videos
+
+
 Backlog:
 
-- Add feed page
-  - Questions oon videos
-  - Multiple questions on videos
-  - Next video
-  - 
-  
 - Create todo list.
 - Add saved phrases screen.
 - Add metrics screen.
@@ -36,6 +38,16 @@ app = {
     completed: [],
     decks: [],
   },
+  videos: {
+    questions: [
+      {
+        videoId: 1,
+        type: Multiple Choice, True/False, Multi Select, Short Answer
+        body: 'What is she doing'
+        level: e, m, h
+      }
+    ]
+  }
   deck: {
     name: '',
     quotes: [],
