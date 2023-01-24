@@ -52,11 +52,17 @@ class _FeedState extends State<Feed> {
   void initState() {
     super.initState();
     mediaUrls.shuffle();
-    _initController(mediaUrls[0]);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    _controller = VideoPlayerController.network(mediaUrls[0])
+      ..initialize().then((_) {
+        _controller.addListener(() {
+          checkDone();
+        });
+        setState(() {});
+      });
+    Future.delayed(const Duration(milliseconds: 500), () {
       _controller.setVolume(0);
-      _controller.play();
     });
+    _controller.play();
   }
 
   @override
@@ -100,30 +106,13 @@ class _FeedState extends State<Feed> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Video Demo',
-      home: Scaffold(
-        body: Center(
-          child: _controller.value.isInitialized
-              ? AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
-                )
-              : Container(),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              _controller.value.isPlaying
-                  ? _controller.pause()
-                  : _controller.play();
-            });
-          },
-          child: Icon(
-            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-          ),
-        ),
-      ),
+    return Center(
+      child: _controller.value.isInitialized
+          ? AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+              child: VideoPlayer(_controller),
+            )
+          : Container(),
     );
   }
 }

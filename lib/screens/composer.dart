@@ -88,8 +88,8 @@ class _ComposerState extends State<Composer> {
     setState(() {
       text = v;
     });
-    if (text == quote.text || text == 'lt') {
-      saveAsCompleted(quote.toJson());
+    if (text == translatedQuote.text || text == 'lt') {
+      saveAsCompleted(translatedQuote.toJson());
       getQuotes();
       setTranslatedQuote();
     }
@@ -97,7 +97,6 @@ class _ComposerState extends State<Composer> {
 
   @override
   Widget build(BuildContext context) {
-    print(Navigator.defaultRouteName);
     return QuotePanel(
         quote, text, translatedQuote, changeLanguage, checkPhraseCompleted);
   }
