@@ -7,6 +7,7 @@ import 'package:semantic/widgets/nav_bar.dart';
 import 'package:semantic/widgets/footer.dart';
 
 import 'package:semantic/screens/composer.dart';
+import 'package:semantic/screens/settings.dart';
 import 'package:semantic/widgets/my_drawer.dart';
 
 import 'package:semantic/utils/firebase.dart';
@@ -33,9 +34,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(
-        title: 'Semantic Stoic',
-      ),
+      routes: {
+        '/': (context) => const MyHomePage(title: 'Semantic Stoic'),
+        '/settings': (context) => const Settings(),
+      },
     );
   }
 }

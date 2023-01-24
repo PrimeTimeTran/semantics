@@ -8,7 +8,7 @@ class FB {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
-
+      
   static logStart() async {
     await analytics.logAppOpen();
     await analytics.logScreenView(
@@ -34,5 +34,13 @@ class FB {
         print('User is signed in Loi');
       }
     });
+  }
+
+  static signedIn() {
+    return FirebaseAuth.instance.currentUser != null;
+  }
+
+  static signOut() {
+    FirebaseAuth.instance.signOut();
   }
 }
