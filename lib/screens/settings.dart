@@ -28,7 +28,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return FB.signedIn()
-        ? MaterialButton(child: Text('Sign Out'), onPressed: signOut())
+        ? MaterialButton(child: Text('Sign Out'), onPressed: signOut)
         : AuthPanel();
   }
 }

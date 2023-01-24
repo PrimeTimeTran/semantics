@@ -7,6 +7,7 @@ import 'package:semantic/widgets/utils.dart';
 import 'package:semantic/widgets/quote_panel.dart';
 
 import 'package:semantic/classes/quote.dart';
+import 'package:semantic/utils/firebase.dart';
 
 class Composer extends StatefulWidget {
   const Composer({Key? key}) : super(key: key);
@@ -32,6 +33,8 @@ class _ComposerState extends State<Composer> {
     super.initState();
     logEvents();
     getQuotes();
+    print('Authenticated:');
+    print(FB.signedIn());
   }
 
   changeLanguage(v) {
