@@ -32,7 +32,6 @@ class _AuthPanelState extends State<AuthPanel> {
         email: email,
         password: password,
       );
-      print(credential);
       Navigator.pushNamed(context, '/');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -51,7 +50,6 @@ class _AuthPanelState extends State<AuthPanel> {
         email: email,
         password: password,
       );
-      print(credential);
       Navigator.pushNamed(context, '/');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

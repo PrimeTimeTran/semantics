@@ -8,6 +8,7 @@ import 'package:semantic/widgets/footer.dart';
 
 import 'package:semantic/screens/composer.dart';
 import 'package:semantic/screens/settings.dart';
+import 'package:semantic/screens/feed.dart';
 import 'package:semantic/widgets/my_drawer.dart';
 
 import 'package:semantic/utils/firebase.dart';

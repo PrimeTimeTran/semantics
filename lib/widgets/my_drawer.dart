@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:semantic/screens/composer.dart';
+import 'package:semantic/screens/feed.dart';
 import 'package:semantic/screens/dashboard.dart';
 import 'package:semantic/screens/settings.dart';
 
@@ -30,6 +31,13 @@ class _MyDrawerState extends State<MyDrawer> {
             title: const Text('Home'),
             onTap: () {
               widget.drawerChange(const Composer());
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: const Text('Feed'),
+            onTap: () {
+              widget.drawerChange(const Feed());
               Navigator.pop(context);
             },
           ),
