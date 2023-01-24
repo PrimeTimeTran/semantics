@@ -52,7 +52,7 @@ class _ComposerState extends State<Composer> {
 
   getQuotes() async {
     final String response =
-        await rootBundle.loadString('assets/$language.json');
+        await rootBundle.loadString('assets/en.json');
     final data = await json.decode(response)['quotes'];
     var quotes = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
     quotes.shuffle();
@@ -64,7 +64,8 @@ class _ComposerState extends State<Composer> {
   }
 
   setTranslatedQuotes() async {
-    final String response = await rootBundle.loadString('assets/en.json');
+    final String response =
+        await rootBundle.loadString('assets/$language.json');
     final data = await json.decode(response)['quotes'];
     var quotes = List<Quote>.from(data.map((x) => Quote.fromJson(x)));
     setState(() {

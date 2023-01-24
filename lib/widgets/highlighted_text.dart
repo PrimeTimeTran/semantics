@@ -42,6 +42,7 @@ class HighlightedText extends StatelessWidget {
       text: TextSpan(
         style: const TextStyle(
           fontSize: 35,
+          color: Colors.black,
         ),
         children: [
           TextSpan(

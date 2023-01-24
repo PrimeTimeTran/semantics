@@ -9,6 +9,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.blue,
       leading: Builder(builder: (BuildContext context) {
         return GestureDetector(
           onTap: () {
@@ -29,7 +30,6 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
         ),
         const Icon(Icons.more_vert),
       ],
-      backgroundColor: Colors.blue,
     );
   }
 }

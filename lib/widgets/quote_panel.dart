@@ -9,9 +9,9 @@ class QuotePanel extends StatefulWidget {
   const QuotePanel(this.quote, this.text, this.translatedQuote,
       this.changeLanguage, this.checkPhraseCompleted,
       {super.key});
+  final String text;
   final Quote quote;
   final Quote translatedQuote;
-  final String text;
   final Function changeLanguage;
   final Function checkPhraseCompleted;
 
@@ -33,17 +33,22 @@ class _QuotePanelState extends State<QuotePanel> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Text(
-                widget.translatedQuote.text,
+                widget.quote.text,
                 textAlign: TextAlign.center,
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+                    const TextStyle(
+                  fontSize: 35,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
           Expanded(
             child: Align(
               child: SizedBox(
-                child: HighlightedText(widget.quote, widget.text),
+                child:
+                    HighlightedText(widget.translatedQuote, widget.text),
               ),
             ),
           ),
