@@ -88,8 +88,6 @@ class _ComposerState extends State<Composer> {
     setState(() {
       text = v;
     });
-    // print('checkPhraseCompleted');
-    // print(text == translatedQuote.text);
     if (text == translatedQuote.text || text == 'lt') {
       saveAsCompleted(translatedQuote.toJson());
       getQuotes();

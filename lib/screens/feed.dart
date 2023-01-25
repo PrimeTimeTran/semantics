@@ -13,7 +13,7 @@ class _FeedState extends State<Feed> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: const VideoContent());
+    return const Center(child: VideoContent());
     
   }
 }

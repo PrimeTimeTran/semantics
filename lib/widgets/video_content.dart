@@ -1,6 +1,11 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 import 'package:video_player/video_player.dart';
+
+import 'package:semantic/classes/video.dart';
 
 List mediaUrls = [
   // 9:16
@@ -24,7 +29,6 @@ List mediaUrls = [
   'https://assets.mixkit.co/videos/preview/mixkit-mist-at-the-base-of-a-snowy-mountain-3308-large.mp4',
   'https://assets.mixkit.co/videos/preview/mixkit-snow-falling-in-a-pine-forest-3352-large.mp4',
   'https://assets.mixkit.co/videos/preview/mixkit-old-street-at-night-3456-large.mp4',
-  'https://assets.c.co/videos/preview/mixkit-woman-sitting-reading-in-pajamas-4950-large.mp4',
   'https://assets.mixkit.co/videos/preview/mixkit-young-sportsman-jumping-rope-at-home-5050-large.mp4',
   'https://assets.mixkit.co/videos/preview/mixkit-domino-effect-on-dark-background-5253-large.mp4',
   'https://assets.mixkit.co/videos/preview/mixkit-man-playing-with-a-tower-of-poker-chips-5251-large.mp4',
@@ -55,9 +59,12 @@ class VideoContent extends StatefulWidget {
 
 class _VideoContentState extends State<VideoContent> {
   late VideoPlayerController _controller;
+  late List<Video> videos = [];
+
   @override
   void initState() {
     super.initState();
+    getVids();
     configVideo();
   }
 
@@ -66,6 +73,15 @@ class _VideoContentState extends State<VideoContent> {
     _controller.pause();
     _controller.dispose();
     super.dispose();
+  }
+
+  getVids() async {
+    final String response = await rootBundle.loadString('assets/videos.json');
+    final data = await json.decode(response)['videos'];
+    List<Video> vids = List<Video>.from(data.map((x) => Video.fromJson(x)));
+    setState(() {
+      videos = vids;
+    });
   }
 
   void configVideo() {
@@ -87,12 +103,12 @@ class _VideoContentState extends State<VideoContent> {
   void checkDone() {
     if (_controller.value.position ==
         const Duration(seconds: 0, minutes: 0, hours: 0)) {
-      debugPrint('video Started');
+      // debugPrint('video Started');
     }
 
     if (!_controller.value.isPlaying &&
         _controller.value.duration == _controller.value.position) {
-      debugPrint('video Ended');
+      // debugPrint('video Ended');
       mediaUrls.shuffle();
       _startVideoPlayer(mediaUrls[0]);
       setState(() {});
@@ -122,7 +138,19 @@ class _VideoContentState extends State<VideoContent> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-
+    var text = '';
+    var ans1 = '';
+    var ans2 = '';
+    var ans3 = '';
+    var ans4 = '';
+    if (videos.isNotEmpty) {
+      print(videos.first.questions?.first.body);
+      text = videos.first.questions?.first.body ?? 'Hi!';
+      ans1 = videos.first.questions?.first.ans?.first.body ?? 'Hi!';
+      ans2 = videos.first.questions?.first.ans?[1].body ?? 'Hi!';
+      ans3 = videos.first.questions?.first.ans?[2].body ?? 'Hi!';
+      ans4 = videos.first.questions?.first.ans?[3].body ?? 'Hi!';
+    }
     return Row(
       children: [
         Expanded(
@@ -136,14 +164,14 @@ class _VideoContentState extends State<VideoContent> {
                       : _controller.play();
                 },
                 child: AbsorbPointer(
-                  child: Container(
-                    color: Colors.blue,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                     child: Column(
                       children: [
                         _controller.value.isInitialized
                             ? SizedBox(
                                 width: width,
-                                height: height * .88,
+                                height: height * .85,
                                 child: VideoPlayer(_controller),
                               )
                             : Container(),
@@ -175,17 +203,53 @@ class _VideoContentState extends State<VideoContent> {
         ),
         Expanded(
           flex: 4,
-          child: Container(
-            height: 300,
-            color: Colors.red,
-            child: Column(
-              children: [
-                Row(
-                  children: [Text('Whats the meaning of life?')],
+          child: videos.isNotEmpty
+              ? SizedBox(
+                  height: 300,
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            text,
+                            style: const TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(ans1),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Text(ans2),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Text(ans3),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Text(ans4),
+                            ],
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 )
-              ],
-            ),
-          ),
+              : Container(),
         ),
       ],
     );

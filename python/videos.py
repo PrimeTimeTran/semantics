@@ -6,7 +6,7 @@ import random
 
 fake = Faker()
 output = {
-    'questions': []
+    'videos': []
 }
 
 
@@ -84,13 +84,12 @@ def createTrueFalseQuestion():
     }
 
 
-with open('./videos.json') as file:
+with open('./videosurls.json') as file:
     data = json.load(file)
     for i, url in enumerate(data['videos']):
-
         questions = [
-            createTrueFalseQuestion(),
-            createTrueFalseQuestion(),
+            # createTrueFalseQuestion(),
+            # createTrueFalseQuestion(),
             createQuestion(),
             createQuestion(),
             createQuestion(),
@@ -106,9 +105,9 @@ with open('./videos.json') as file:
             'questions': questions,
         }
 
-        output['questions'].append(v)
+        output['videos'].append(v)
 
 print(output)
 
-with open("questions.json", "w") as outfile:
+with open("../assets/videos.json", "w") as outfile:
     json.dump(output, outfile)
