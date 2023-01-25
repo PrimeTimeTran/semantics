@@ -17,6 +17,9 @@ Quizlet/Kahoot/Duolingo/LeetCode tool for learning a language and mental health/
 
 Backlog:
 
+- Challenge mode.
+- User can set their homepage.
+- User can choose light or dark moore.
 - Gamify answering questions on videos.
 - Comments on videos.
 - Create todo list.
@@ -25,7 +28,6 @@ Backlog:
 - Add most saved quotes screen.
 - Add admin screen for creating lessons. Lessons are videos, questions, answers.
 - Add phrases types. ie motivational, stoic, joke, fact, elementary
-- Challenge mode
 
 Done:
 
