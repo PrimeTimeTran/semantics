@@ -9,6 +9,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      title: Center(child: const Text('Semantic Stoic')),
       backgroundColor: Colors.blue,
       leading: Builder(builder: (BuildContext context) {
         return GestureDetector(

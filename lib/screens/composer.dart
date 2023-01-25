@@ -119,7 +119,7 @@ class _ComposerState extends State<Composer> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Text('"shfit" + "→" for next quote'),
+                  Text('"shift" + "→" for next quote'),
                 ],
               ),
             ),

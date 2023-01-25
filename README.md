@@ -8,21 +8,24 @@ Quizlet/Kahoot/Duolingo/LeetCode tool for learning a language and mental health/
 - Flutter
 - Firebase CLI
 
-# WIP 
-- [x] Add feed page
-- [] Next video when question completed
-- [] As a user I must answer a question on each video. May have different levels, easy, medium, hard.
-- [] Multiple questions on videos
+# WIP
 
+- [x] Add feed page
+- [x] As a user I see questions and answers on each video.
+- [ ] As a user I must answer a question on each video. May have different levels, easy, medium, hard.
+- [ ] As a user I see the next video play when I answer a question.
 
 Backlog:
 
+- Gamify answering questions on videos.
+- Comments on videos.
 - Create todo list.
 - Add saved phrases screen.
 - Add metrics screen.
 - Add most saved quotes screen.
-- Add admin edit screen.
+- Add admin screen for creating lessons. Lessons are videos, questions, answers.
 - Add phrases types. ie motivational, stoic, joke, fact, elementary
+- Challenge mode
 
 Done:
 

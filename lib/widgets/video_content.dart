@@ -156,12 +156,11 @@ class _VideoContentState extends State<VideoContent> {
     var ans3 = '';
     var ans4 = '';
     if (videos.isNotEmpty) {
-      print(videos.first.questions?.first.body);
-      text = videos.first.questions?.first.body ?? 'Hi!';
-      ans1 = videos.first.questions?.first.ans?.first.body ?? 'Hi!';
-      ans2 = videos.first.questions?.first.ans?[1].body ?? 'Hi!';
-      ans3 = videos.first.questions?.first.ans?[2].body ?? 'Hi!';
-      ans4 = videos.first.questions?.first.ans?[3].body ?? 'Hi!';
+      text = videos.first.questions?.first.body ?? '';
+      ans1 = videos.first.questions?.first.ans?.first.body ?? '';
+      ans2 = videos.first.questions?.first.ans?[1].body ?? '';
+      ans3 = videos.first.questions?.first.ans?[2].body ?? '';
+      ans4 = videos.first.questions?.first.ans?[3].body ?? '';
     }
     return Row(
       children: [
@@ -183,7 +182,7 @@ class _VideoContentState extends State<VideoContent> {
                         _controller.value.isInitialized
                             ? SizedBox(
                                 width: width,
-                                height: height * .85,
+                                height: height * .83,
                                 child: VideoPlayer(_controller),
                               )
                             : Container(),

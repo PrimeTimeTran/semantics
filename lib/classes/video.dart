@@ -20,7 +20,7 @@ class Video {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['videoUrl'] = videoUrl;
-    if (this.questions != null) {
+    if (questions != null) {
       data['questions'] = questions!.map((v) => v.toJson()).toList();
     }
     return data;
