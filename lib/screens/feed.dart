@@ -14,6 +14,5 @@ class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
     return const Center(child: VideoContent());
-    
   }
 }

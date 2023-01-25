@@ -9,9 +9,8 @@ import 'package:semantic/classes/video.dart';
 
 List mediaUrls = [
   // 9:16
-  'https://v16m-webapp.tiktokcdn-us.com/1898bb1a898d7bf9fb44685d52580494/63d156d9/video/tos/useast5/tos-useast5-pve-0068-tx/917a34c44ecf4d03a3ce62dfd2da3d09/?a=1988&ch=0&cr=0&dr=0&lr=tiktok&cd=0%7C0%7C1%7C0&cv=1&br=3466&bt=1733&cs=0&ds=3&ft=4KLMeMzm8Zmo0UK6I64jVDjZdpWrKsdm&mime_type=video_mp4&qs=0&rc=OTs3ODZlZ2dpNmYzaGc1O0BpM202bjk6ZjVtaDMzZzczNEBjMTAxMGBiXjIxLjMuLl5fYSMuLmEucjRvL2pgLS1kMS9zcw%3D%3D&l=20230125101821D2BD33EA2DBC82B084C0',
   'https://scontent-mia3-2.cdninstagram.com/o1/v/t16/f1/m82/824811606C8784E3DFCB24D6850986BD_video_dashinit.mp4?efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uNzIwLmNsaXBzLmJhc2VsaW5lIn0&_nc_ht=scontent-mia3-2.cdninstagram.com&_nc_cat=105&vs=3373433096254398_3441332658&_nc_vs=HBksFQIYT2lnX3hwdl9yZWVsc19wZXJtYW5lbnRfcHJvZC84MjQ4MTE2MDZDODc4NEUzREZDQjI0RDY4NTA5ODZCRF92aWRlb19kYXNoaW5pdC5tcDQVAALIAQAVABgkR0t5aFBCUHZJV0NxYTBBRUFQc0EtNzlpWFk4WGJwUjFBQUFGFQICyAEAKAAYABsAFQAAJpKCu6zPyfQ%2FFQIoAkMzLBdAJmZmZmZmZhgSZGFzaF9iYXNlbGluZV8xX3YxEQB1%2FgcA&ccb=9-4&oh=00_AfC1Yt3MZM_hKYFbBZuY6PN_q2Scz7DsGo6sMpQwrvrVGQ&oe=63D3BFF3&_nc_sid=ca5ca4',
-
+  'https://scontent-mia3-2.cdninstagram.com/o1/v/t16/f1/m82/514F2F092D41B994113F9F48AEF8E699_video_dashinit.mp4?efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uNzIwLmNsaXBzLmJhc2VsaW5lIn0&_nc_ht=scontent-mia3-2.cdninstagram.com&_nc_cat=109&vs=1120930408592826_4236133015&_nc_vs=HBksFQIYT2lnX3hwdl9yZWVsc19wZXJtYW5lbnRfcHJvZC81MTRGMkYwOTJENDFCOTk0MTEzRjlGNDhBRUY4RTY5OV92aWRlb19kYXNoaW5pdC5tcDQVAALIAQAVABgkR0s4UVRBZnpiS1JZOXRZRUFBTEFwZEtjN3VnWGJwUjFBQUFGFQICyAEAKAAYABsAFQAAJsippY6Oxt0%2FFQIoAkMzLBdAN3dLxqfvnhgSZGFzaF9iYXNlbGluZV8xX3YxEQB1%2FgcA&ccb=9-4&oh=00_AfAaxid0T1me8sWyHddY8v_pQ_aHgMSBZKtBbnJUl1kMaQ&oe=63D47F3C&_nc_sid=ca5ca4',
   // 'https://assets.mixkit.co/videos/preview/mixkit-man-runs-past-ground-level-shot-32809-large.mp4',
   // 'https://assets.mixkit.co/videos/preview/mixkit-red-frog-on-a-log-1487-large.mp4',
   // 'https://assets.mixkit.co/videos/preview/mixkit-woman-running-above-the-camera-on-a-running-track-32807-large.mp4',
@@ -61,20 +60,27 @@ class VideoContent extends StatefulWidget {
 }
 
 class _VideoContentState extends State<VideoContent> {
-  late VideoPlayerController _controller;
+  late FocusNode _focus;
   late List<Video> videos = [];
+  late VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
     getVids();
     configVideo();
+    _focus = FocusNode();
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _focus.requestFocus();
+    });
   }
 
   @override
   void dispose() {
     _controller.pause();
     _controller.dispose();
+    _focus.dispose();
     super.dispose();
   }
 
@@ -93,7 +99,6 @@ class _VideoContentState extends State<VideoContent> {
     final url = mediaUrls[0];
     _controller = VideoPlayerController.network(url)
       ..initialize().then((_) {
-        // _controller.setVolume(0);
         _controller.addListener(() {
           checkDone();
         });
@@ -175,6 +180,11 @@ class _VideoContentState extends State<VideoContent> {
     _startVideoPlayer(mediaUrls[0]);
   }
 
+  togglePlay() {
+    print('play/pause');
+    _controller.value.isPlaying ? _controller.pause() : _controller.play();
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -191,15 +201,19 @@ class _VideoContentState extends State<VideoContent> {
       ans3 = videos.first.questions?.first.ans?[2].body ?? '';
       ans4 = videos.first.questions?.first.ans?[3].body ?? '';
     }
+
     return CallbackShortcuts(
       bindings: {
         const SingleActivator(LogicalKeyboardKey.keyM): toggleSound,
         const SingleActivator(LogicalKeyboardKey.keyN): next,
         const SingleActivator(LogicalKeyboardKey.arrowUp): up,
         const SingleActivator(LogicalKeyboardKey.arrowDown): down,
+        const SingleActivator(LogicalKeyboardKey.arrowRight): next,
+        const SingleActivator(LogicalKeyboardKey.space): togglePlay,
       },
       child: Focus(
         autofocus: true,
+        focusNode: _focus,
         child: Row(
           children: [
             Expanded(
@@ -207,11 +221,7 @@ class _VideoContentState extends State<VideoContent> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      _controller.value.isPlaying
-                          ? _controller.pause()
-                          : _controller.play();
-                    },
+                    onTap: togglePlay,
                     child: AbsorbPointer(
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -258,74 +268,68 @@ class _VideoContentState extends State<VideoContent> {
                         children: [
                           Expanded(
                             flex: 8,
-                            child: Container(
-                              // color: Colors.green,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        // color: Colors.yellow,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          text,
+                                          style: const TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const Divider(
+                                            height: 1,
+                                            thickness: 1,
+                                            color: Colors.red),
+                                        Row(
                                           children: [
-                                            Text(
-                                              text,
-                                              style: const TextStyle(
-                                                  fontSize: 30,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            const Divider(
-                                                height: 1,
-                                                thickness: 1,
-                                                color: Colors.red),
-                                            Row(
-                                              children: [
-                                                Text(ans1),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Row(
-                                              children: [
-                                                Text(ans2),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Row(
-                                              children: [
-                                                Text(ans3),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Row(
-                                              children: [
-                                                Text(ans4),
-                                              ],
-                                            ),
+                                            Text(ans1),
                                           ],
                                         ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          children: [
+                                            Text(ans2),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          children: [
+                                            Text(ans3),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          children: [
+                                            Text(ans4),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ],
                             ),
                           ),
                           Container(
-                            child: Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text('n - next, '),
-                                  Text('m - mute, '),
-                                  Text('↑ - volume + '),
-                                  Text('↓ - volume - '),
-                                  Text('→'),
-                                ],
-                              ),
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              // ignore: prefer_const_literals_to_create_immutables
+                              children: [
+                                const Text('spacebar - play/pause, '),
+                                const Text('n / → - next, '),
+                                const Text('m - mute, '),
+                                const Text('↑ - volume + '),
+                                const Text('↓ - volume - '),
+                              ],
                             ),
                           )
                         ],
