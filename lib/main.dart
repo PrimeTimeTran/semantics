@@ -83,9 +83,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: <Widget>[
           Expanded(
+            flex: 10,
             child: body,
           ),
-          const Footer(),
+          Expanded(child: Footer()),
         ],
       ),
     );

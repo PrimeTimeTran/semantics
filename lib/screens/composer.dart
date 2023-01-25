@@ -104,7 +104,8 @@ class _ComposerState extends State<Composer> {
   Widget build(BuildContext context) {
     return CallbackShortcuts(
       bindings: {
-        const SingleActivator(LogicalKeyboardKey.keyN, shift: true): nextQuote,
+        const SingleActivator(LogicalKeyboardKey.arrowRight, shift: true):
+            nextQuote,
       },
       child: Focus(
         autofocus: true,
@@ -118,7 +119,7 @@ class _ComposerState extends State<Composer> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Text('"shfit" + "n" for next quote'),
+                  Text('"shfit" + "→" for next quote'),
                 ],
               ),
             ),

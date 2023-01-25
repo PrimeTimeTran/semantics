@@ -5,6 +5,7 @@ class Footer extends StatelessWidget {
   const Footer({super.key});
 
   _launchURL() async {
+    print('Click');
     const url =
         'https://docs.google.com/forms/d/e/1FAIpQLSekPhYKaREo9vzxXcVzux0Ej-loEzLSWI9LGU2tow9vLce1Tg/viewform';
     final uri = Uri.parse(url);
@@ -21,13 +22,47 @@ class Footer extends StatelessWidget {
       height: 50,
       color: Colors.grey.shade200,
       child: Center(
-        child: GestureDetector(
-          onTap: () {
-            _launchURL();
-          },
-          child: const Text(
-              'Bug Report, Translation Correction, Feature or language Request'),
-        ),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('About'),
+              Text('Careers'),
+              Text('Docs'),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Facebook'),
+              Text('LinkedIn'),
+              Text('Contact Us'),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  _launchURL();
+                },
+                child: const Text('Help'),
+              ),
+              GestureDetector(
+                onTap: () {
+                  _launchURL();
+                },
+                child: const Text('Request'),
+              ),
+              GestureDetector(
+                onTap: () {
+                  _launchURL();
+                },
+                child: const Text('Bug Report'),
+              ),
+            ],
+          ),
+        ]),
       ),
     );
   }
