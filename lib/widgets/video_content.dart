@@ -123,68 +123,56 @@ class _VideoContentState extends State<VideoContent> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
-    return GestureDetector(
-      onTap: () {
-        _controller.value.isPlaying ? _controller.pause() : _controller.play();
-      },
-      child: Container(
-        width: width,
-        height: height,
-        child: Stack(
-          children: [
-            _controller.value.isInitialized
-                ? _controller.value.aspectRatio < 1.0
-                    ? SizedBox(
-                        height: height,
-                        width: width,
-                        child: VideoPlayer(_controller),
-                      )
-                    : Align(
-                        child: AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          child: VideoPlayer(_controller),
-                        ),
-                      )
-                : Container(),
-            Container(
-              width: width,
-              height: height,
-              alignment: Alignment.bottomCenter,
-              color: Colors.transparent,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      if (widget.discover)
-                        GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 20, top: 20),
-                            child: Column(
-                              children: const [
-                                Icon(Icons.arrow_back),
-                              ],
-                            ),
-                          ),
-                        )
-                    ],
-                  ),
-                  if (_controller.value.isInitialized)
-                    VideoProgressIndicator(
-                      _controller,
-                      allowScrubbing: true,
-                      colors: const VideoProgressColors(
-                          backgroundColor: Colors.red,
-                          bufferedColor: Colors.black,
-                          playedColor: Colors.blue),
-                    ),
-                ],
+    return Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: GestureDetector(
+            onTap: () {
+              _controller.value.isPlaying
+                  ? _controller.pause()
+                  : _controller.play();
+            },
+            child: AbsorbPointer(
+              child: Container(
+                color: Colors.green,
+                child: Column(
+                  children: [
+                    _controller.value.isInitialized
+                        // ? _controller.value.aspectRatio < 1.0
+                        ? SizedBox(
+                            width: 400,
+                            height: height * .85,
+                            child: VideoPlayer(_controller),
+                          )
+                        // : Align(
+                        //     child: AspectRatio(
+                        //       aspectRatio: _controller.value.aspectRatio,
+                        //       child: VideoPlayer(_controller),
+                        //     ),
+                        //   )
+                        : Container(),
+                  ],
+                ),
               ),
             ),
-          ],
+          ),
         ),
-      ),
+        Expanded(
+          flex: 4,
+          child: Container(
+            height: 300,
+            color: Colors.red,
+            child: Column(
+              children: [
+                Row(
+                  children: [Text('Whats the meaning of life?')],
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -83,10 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(150, 10, 150, 10),
-              child: body,
-            ),
+            child: body,
           ),
           const Footer(),
         ],
