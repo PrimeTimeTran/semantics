@@ -127,35 +127,50 @@ class _VideoContentState extends State<VideoContent> {
       children: [
         Expanded(
           flex: 2,
-          child: GestureDetector(
-            onTap: () {
-              _controller.value.isPlaying
-                  ? _controller.pause()
-                  : _controller.play();
-            },
-            child: AbsorbPointer(
-              child: Container(
-                color: Colors.green,
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  _controller.value.isPlaying
+                      ? _controller.pause()
+                      : _controller.play();
+                },
+                child: AbsorbPointer(
+                  child: Container(
+                    color: Colors.blue,
+                    child: Column(
+                      children: [
+                        _controller.value.isInitialized
+                            ? SizedBox(
+                                width: width,
+                                height: height * .88,
+                                child: VideoPlayer(_controller),
+                              )
+                            : Container(),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.bottomCenter,
+                color: Colors.transparent,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _controller.value.isInitialized
-                        // ? _controller.value.aspectRatio < 1.0
-                        ? SizedBox(
-                            width: 400,
-                            height: height * .85,
-                            child: VideoPlayer(_controller),
-                          )
-                        // : Align(
-                        //     child: AspectRatio(
-                        //       aspectRatio: _controller.value.aspectRatio,
-                        //       child: VideoPlayer(_controller),
-                        //     ),
-                        //   )
-                        : Container(),
+                    if (_controller.value.isInitialized)
+                      VideoProgressIndicator(
+                        _controller,
+                        allowScrubbing: true,
+                        colors: const VideoProgressColors(
+                            backgroundColor: Colors.red,
+                            bufferedColor: Colors.black,
+                            playedColor: Colors.blue),
+                      ),
                   ],
                 ),
               ),
-            ),
+            ],
           ),
         ),
         Expanded(
