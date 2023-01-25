@@ -7,20 +7,41 @@ import 'package:semantic/classes/quote.dart';
 
 class QuotePanel extends StatefulWidget {
   const QuotePanel(this.quote, this.text, this.translatedQuote,
-      this.changeLanguage, this.checkPhraseCompleted,
+      this.changeLanguage, this.checkPhraseCompleted, this.nextQuote,
       {super.key});
   final String text;
   final Quote quote;
   final Quote translatedQuote;
   final Function changeLanguage;
   final Function checkPhraseCompleted;
+  final Function nextQuote;
 
   @override
   State<QuotePanel> createState() => _QuotePanelState();
 }
 
 class _QuotePanelState extends State<QuotePanel> {
+  late FocusNode _focus;
   final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _focus = FocusNode();
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _focus.requestFocus();
+    });
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    _focus.dispose();
+
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +76,8 @@ class _QuotePanelState extends State<QuotePanel> {
           Expanded(
             child: Align(
               child: TextField(
+                focusNode: _focus,
+
                 autofocus: true,
                 controller: _controller,
                 onChanged: (String value) async {

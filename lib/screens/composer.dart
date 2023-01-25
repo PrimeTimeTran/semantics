@@ -95,7 +95,7 @@ class _ComposerState extends State<Composer> {
     }
   }
 
-  sayHi() {
+  nextQuote() {
     getQuotes();
     setTranslatedQuote();
   }
@@ -104,7 +104,7 @@ class _ComposerState extends State<Composer> {
   Widget build(BuildContext context) {
     return CallbackShortcuts(
       bindings: {
-        const SingleActivator(LogicalKeyboardKey.keyN): sayHi,
+        const SingleActivator(LogicalKeyboardKey.keyN, shift: true): nextQuote,
       },
       child: Focus(
         autofocus: true,
@@ -112,13 +112,13 @@ class _ComposerState extends State<Composer> {
           children: [
             Expanded(
               child: QuotePanel(quote, text, translatedQuote, changeLanguage,
-                  checkPhraseCompleted),
+                  checkPhraseCompleted, nextQuote),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Text('"n" for next quote'),
+                  Text('"shfit" + "n" for next quote'),
                 ],
               ),
             ),
