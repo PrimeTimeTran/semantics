@@ -79,6 +79,7 @@ class _VideoContentState extends State<VideoContent> {
     final String response = await rootBundle.loadString('assets/videos.json');
     final data = await json.decode(response)['videos'];
     List<Video> vids = List<Video>.from(data.map((x) => Video.fromJson(x)));
+    vids.shuffle();
     setState(() {
       videos = vids;
     });
@@ -100,6 +101,13 @@ class _VideoContentState extends State<VideoContent> {
     _controller.play();
   }
 
+  shuffleVideos() {
+    videos.shuffle();
+    setState(() {
+      videos = videos;
+    });
+  }
+
   void checkDone() {
     if (_controller.value.position ==
         const Duration(seconds: 0, minutes: 0, hours: 0)) {
@@ -111,6 +119,7 @@ class _VideoContentState extends State<VideoContent> {
       // debugPrint('video Ended');
       mediaUrls.shuffle();
       _startVideoPlayer(mediaUrls[0]);
+
       setState(() {});
     }
   }
@@ -118,7 +127,10 @@ class _VideoContentState extends State<VideoContent> {
   void _initController(String link) {
     _controller = VideoPlayerController.network(link)
       ..initialize().then((_) {
-        setState(() {});
+        videos.shuffle();
+        setState(() {
+          videos = videos;
+        });
         _controller.addListener(() {
           checkDone();
         });
