@@ -316,17 +316,15 @@ class _VideoContentState extends State<VideoContent> {
                           ),
                           Container(
                             child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(1.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text('n - next, '),
-                                    Text('m - mute, '),
-                                    Text('arrow up - ↑ - volume + '),
-                                    Text('arrow down - ↓ - volume - '),
-                                  ],
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text('n - next, '),
+                                  Text('m - mute, '),
+                                  Text('↑ - volume + '),
+                                  Text('↓ - volume - '),
+                                  Text('→'),
+                                ],
                               ),
                             ),
                           )
