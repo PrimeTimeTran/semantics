@@ -25,7 +25,8 @@ class Footer extends StatelessWidget {
           onTap: () {
             _launchURL();
           },
-          child: const Text('Bug/Feature Request'),
+          child: const Text(
+              'Bug Report, Translation Correction, Feature or language Request'),
         ),
       ),
     );

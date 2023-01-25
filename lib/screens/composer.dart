@@ -95,9 +95,36 @@ class _ComposerState extends State<Composer> {
     }
   }
 
+  sayHi() {
+    getQuotes();
+    setTranslatedQuote();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return QuotePanel(
-        quote, text, translatedQuote, changeLanguage, checkPhraseCompleted);
+    return CallbackShortcuts(
+      bindings: {
+        const SingleActivator(LogicalKeyboardKey.keyN): sayHi,
+      },
+      child: Focus(
+        autofocus: true,
+        child: Column(
+          children: [
+            Expanded(
+              child: QuotePanel(quote, text, translatedQuote, changeLanguage,
+                  checkPhraseCompleted),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Text('"n" for next quote'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

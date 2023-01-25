@@ -57,7 +57,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Widget body = const Feed();
+  Widget body = const Composer();
 
   @override
   void initState() {
