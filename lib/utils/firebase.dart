@@ -4,14 +4,14 @@ import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:faker/faker.dart';
 
 class FB {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
-  static FirebaseDatabase database = FirebaseDatabase.instance;
-
-  static DatabaseReference db = FirebaseDatabase.instance.ref();
+  static FirebaseDatabase db = FirebaseDatabase.instance;
+  static FirebaseAuth auth = FirebaseAuth.instance;
 
   static logStart() async {
     await analytics.logAppOpen();
@@ -28,11 +28,11 @@ class FB {
 
   static configAuth() async {
     if (window.location.hostname == 'localhost') {
-      await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-      database.useDatabaseEmulator('localhost', 9000);
+      await auth.useAuthEmulator('localhost', 9099);
+      db.useDatabaseEmulator('localhost', 9000);
       print('Localhost using emulator');
     }
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    auth.authStateChanges().listen((User? user) {
       if (user == null) {
         print('User is currently signed out!');
       } else {
@@ -42,11 +42,11 @@ class FB {
   }
 
   static signedIn() {
-    return FirebaseAuth.instance.currentUser != null;
+    return auth.currentUser != null;
   }
 
   static signOut() {
-    FirebaseAuth.instance.signOut();
+    auth.signOut();
   }
 
   static logSignIn() async {
@@ -62,11 +62,9 @@ class FB {
   }
 
   static createFavorite() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
-    await ref.set({
-      "name": "John",
-      "age": 18,
-      "address": {"line1": "100 Mountain View"}
-    });
+    DatabaseReference ref2 = db.ref('quotes');
+
+    var go = ref2.push();
+    go.set({"body": faker.job.title()});
   }
 }
