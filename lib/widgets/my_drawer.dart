@@ -5,6 +5,8 @@ import 'package:semantic/screens/feed.dart';
 import 'package:semantic/screens/dashboard.dart';
 import 'package:semantic/screens/settings.dart';
 
+import '../screens/chat.dart';
+
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key, required this.drawerChange});
 
@@ -56,6 +58,18 @@ class _MyDrawerState extends State<MyDrawer> {
             title: const Text('Completed'),
             onTap: () {
               widget.drawerChange(const Dashboard());
+              Navigator.pop(context);
+            },
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Divider(color: Colors.grey),
+          ),
+          ListTile(
+            leading: const Icon(Icons.chat_outlined),
+            title: const Text('Chat'),
+            onTap: () {
+              widget.drawerChange(const Chat());
               Navigator.pop(context);
             },
           ),

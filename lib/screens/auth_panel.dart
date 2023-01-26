@@ -67,8 +67,14 @@ class _AuthPanelState extends State<AuthPanel> {
 
   @override
   Widget build(BuildContext context) {
+    var shortestSide = MediaQuery.of(context).size.shortestSide;
+
+    final bool useMobileLayout = shortestSide < 600;
+
     return Padding(
-      padding: const EdgeInsets.fromLTRB(200, 10, 200, 10),
+      padding: useMobileLayout
+          ? EdgeInsets.all(8)
+          : EdgeInsets.fromLTRB(200, 10, 200, 10),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -134,12 +140,6 @@ class _AuthPanelState extends State<AuthPanel> {
                   createAccount();
                 },
               ),
-            ),
-            MaterialButton(
-              child: const Text('Google'),
-              onPressed: () {
-                signInWithGoogle();
-              },
             ),
           ],
         ),

@@ -18,6 +18,13 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var shortestSide = MediaQuery.of(context).size.shortestSide;
+
+    final bool useMobileLayout = shortestSide < 600;
+
+    if (useMobileLayout) {
+      return Container();
+    }
     return Container(
       height: 50,
       color: Colors.grey.shade200,

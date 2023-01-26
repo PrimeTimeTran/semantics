@@ -187,6 +187,10 @@ class _VideoContentState extends State<VideoContent> {
 
   @override
   Widget build(BuildContext context) {
+    var shortestSide = MediaQuery.of(context).size.shortestSide;
+
+    final bool useMobileLayout = shortestSide < 600;
+
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     var text = '';
@@ -200,6 +204,28 @@ class _VideoContentState extends State<VideoContent> {
       ans2 = videos.first.questions?.first.ans?[1].body ?? '';
       ans3 = videos.first.questions?.first.ans?[2].body ?? '';
       ans4 = videos.first.questions?.first.ans?[3].body ?? '';
+    }
+
+    if (useMobileLayout) {
+      return GestureDetector(
+        onTap: togglePlay,
+        child: AbsorbPointer(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+            child: Column(
+              children: [
+                _controller.value.isInitialized
+                    ? SizedBox(
+                        width: width,
+                        height: height * .83,
+                        child: VideoPlayer(_controller),
+                      )
+                    : Container(),
+              ],
+            ),
+          ),
+        ),
+      );
     }
 
     return CallbackShortcuts(
