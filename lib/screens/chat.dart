@@ -1,11 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/services.dart';
 
 class Quote {
   final String body;
-  Quote(this.body);
-  Quote.fromSnapshot(Map<String, dynamic> json) : body = json['body'];
+  final DateTime created;
+  Quote(this.body, this.created);
+  Quote.fromSnapshot(Map<String, dynamic> json)
+      : created = DateTime.parse(json['created']),
+        body = json['body'];
 }
 
 class Chat extends StatefulWidget {
@@ -17,12 +23,17 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   late List quotes = [];
+  late String text = '';
+  FocusNode myFocusNode = FocusNode();
+
+  var _controller = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     DatabaseReference ref = FirebaseDatabase.instance.ref('quotes');
 
-    ref.onValue.listen((DatabaseEvent event) {
+    ref.limitToLast(10).onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value;
       updateQuotes(data);
     });
@@ -31,6 +42,8 @@ class _ChatState extends State<Chat> {
   updateQuotes(values) {
     List q = [];
     values.forEach((key, v) {
+      print(key);
+      print(v);
       q.add(Quote.fromSnapshot(v));
     });
     setState(() {
@@ -55,6 +68,30 @@ class _ChatState extends State<Chat> {
             },
           ),
         ),
+        Container(
+          color: Colors.red,
+          child: TextField(
+            controller: _controller,
+            focusNode: myFocusNode,
+            onSubmitted: (value) {
+              _controller.clear();
+
+              var q = {"created": DateTime.now().toString(), "body": text};
+              DatabaseReference ref = FirebaseDatabase.instance.ref('quotes');
+              var val = ref.push();
+              val.set(q);
+              setState(() {
+                text = '';
+              });
+              myFocusNode.requestFocus();
+            },
+            onChanged: (value) {
+              setState(() {
+                text = value;
+              });
+            },
+          ),
+        )
       ],
     );
   }

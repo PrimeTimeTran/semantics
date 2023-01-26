@@ -65,6 +65,6 @@ class FB {
     DatabaseReference ref2 = db.ref('quotes');
 
     var go = ref2.push();
-    go.set({"body": faker.job.title()});
+    go.set({"created": DateTime.now().toString(), "body": faker.job.title()});
   }
 }
