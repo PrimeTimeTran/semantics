@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:semantic/utils/firebase.dart';
+
 class Navbar extends StatelessWidget implements PreferredSizeWidget {
   const Navbar({super.key});
 
@@ -41,6 +43,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
           }, onSelected: (value) {
             if (value == 0) {
               print("My account menu is selected.");
+              FB.createFavorite();
             } else if (value == 1) {
               print("Settings menu is selected.");
             } else if (value == 2) {

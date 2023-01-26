@@ -2,13 +2,17 @@
 import 'dart:html';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class FB {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
-      
+  static FirebaseDatabase database = FirebaseDatabase.instance;
+
+  static DatabaseReference db = FirebaseDatabase.instance.ref();
+
   static logStart() async {
     await analytics.logAppOpen();
     await analytics.logScreenView(
@@ -25,6 +29,7 @@ class FB {
   static configAuth() async {
     if (window.location.hostname == 'localhost') {
       await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+      database.useDatabaseEmulator('localhost', 9000);
       print('Localhost using emulator');
     }
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
@@ -43,6 +48,7 @@ class FB {
   static signOut() {
     FirebaseAuth.instance.signOut();
   }
+
   static logSignIn() async {
     await analytics.logLogin(loginMethod: 'Email & Password');
   }
@@ -53,5 +59,14 @@ class FB {
 
   static completeQuote() async {
     await analytics.logEvent(name: 'complete-quote');
+  }
+
+  static createFavorite() async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
+    await ref.set({
+      "name": "John",
+      "age": 18,
+      "address": {"line1": "100 Mountain View"}
+    });
   }
 }

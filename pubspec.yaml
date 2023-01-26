@@ -46,6 +46,7 @@ dependencies:
   video_player: ^2.5.1
   faker: ^2.1.0
   uuid: ^3.0.7
+  firebase_database: ^10.0.9
 
 dev_dependencies:
   flutter_test:

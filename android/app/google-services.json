@@ -1,41 +1,35 @@
 {
   "project_info": {
-    "project_number": "973904042413",
-    "project_id": "semantics-learn",
-    "storage_bucket": "semantics-learn.appspot.com"
+    "project_number": "263232090134",
+    "firebase_url": "https://semantic-stoic-default-rtdb.firebaseio.com",
+    "project_id": "semantic-stoic",
+    "storage_bucket": "semantic-stoic.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:973904042413:android:cd94fd5f070bfb91d4a924",
+        "mobilesdk_app_id": "1:263232090134:android:1d771b3feb76ff55c10537",
         "android_client_info": {
           "package_name": "com.example.semantic"
         }
       },
       "oauth_client": [
         {
-          "client_id": "973904042413-n2uis2iatvg9kjr8qda0p18st5c06f0r.apps.googleusercontent.com",
+          "client_id": "263232090134-f1gohno6o3bchk787rihh9cdr6dsrgbs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDzd-jiXdbf_hAcRWSAaNZqYTFIXAsgaRA"
+          "current_key": "AIzaSyADZ6vwKGJTvJ6M88qcb5oYvwtPMQd9hIg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "973904042413-n2uis2iatvg9kjr8qda0p18st5c06f0r.apps.googleusercontent.com",
+              "client_id": "263232090134-81jahmghqnelegh2g1p0roto3370bqn2.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "973904042413-2dcg9ncuv5e8g58obhja05cb6uk1l53u.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.semantic"
-              }
             }
           ]
         }

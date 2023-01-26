@@ -44,39 +44,44 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBhwzA-8Rukse5yqG-wI-0R-yOMUheH8C0',
-    appId: '1:973904042413:web:bcba8b838b5cf911d4a924',
-    messagingSenderId: '973904042413',
-    projectId: 'semantics-learn',
-    authDomain: 'semantics-learn.firebaseapp.com',
-    storageBucket: 'semantics-learn.appspot.com',
+    apiKey: 'AIzaSyD3cV-jRCDYIQp9yDphr0Kl0meqQF6Pjgo',
+    appId: '1:263232090134:web:8fcd5d3f345df603c10537',
+    messagingSenderId: '263232090134',
+    projectId: 'semantic-stoic',
+    authDomain: 'semantic-stoic.firebaseapp.com',
+    databaseURL: 'https://semantic-stoic-default-rtdb.firebaseio.com',
+    storageBucket: 'semantic-stoic.appspot.com',
+    measurementId: 'G-ME6W3E2X76',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDzd-jiXdbf_hAcRWSAaNZqYTFIXAsgaRA',
-    appId: '1:973904042413:android:cd94fd5f070bfb91d4a924',
-    messagingSenderId: '973904042413',
-    projectId: 'semantics-learn',
-    storageBucket: 'semantics-learn.appspot.com',
+    apiKey: 'AIzaSyADZ6vwKGJTvJ6M88qcb5oYvwtPMQd9hIg',
+    appId: '1:263232090134:android:1d771b3feb76ff55c10537',
+    messagingSenderId: '263232090134',
+    projectId: 'semantic-stoic',
+    databaseURL: 'https://semantic-stoic-default-rtdb.firebaseio.com',
+    storageBucket: 'semantic-stoic.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB1IzLCRxwNBKbnPk3qme3u0tcn3ONSacw',
-    appId: '1:973904042413:ios:82dd70e5a7b834b1d4a924',
-    messagingSenderId: '973904042413',
-    projectId: 'semantics-learn',
-    storageBucket: 'semantics-learn.appspot.com',
-    iosClientId: '973904042413-2dcg9ncuv5e8g58obhja05cb6uk1l53u.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCV3pWtQEWZW1bDKctPbvTOh_wYW0EsoE0',
+    appId: '1:263232090134:ios:b6a2687df95549a7c10537',
+    messagingSenderId: '263232090134',
+    projectId: 'semantic-stoic',
+    databaseURL: 'https://semantic-stoic-default-rtdb.firebaseio.com',
+    storageBucket: 'semantic-stoic.appspot.com',
+    iosClientId: '263232090134-l8unlvohnvfl2jsuirsdi367hp0jfskj.apps.googleusercontent.com',
     iosBundleId: 'com.example.semantic',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB1IzLCRxwNBKbnPk3qme3u0tcn3ONSacw',
-    appId: '1:973904042413:ios:82dd70e5a7b834b1d4a924',
-    messagingSenderId: '973904042413',
-    projectId: 'semantics-learn',
-    storageBucket: 'semantics-learn.appspot.com',
-    iosClientId: '973904042413-2dcg9ncuv5e8g58obhja05cb6uk1l53u.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCV3pWtQEWZW1bDKctPbvTOh_wYW0EsoE0',
+    appId: '1:263232090134:ios:b6a2687df95549a7c10537',
+    messagingSenderId: '263232090134',
+    projectId: 'semantic-stoic',
+    databaseURL: 'https://semantic-stoic-default-rtdb.firebaseio.com',
+    storageBucket: 'semantic-stoic.appspot.com',
+    iosClientId: '263232090134-l8unlvohnvfl2jsuirsdi367hp0jfskj.apps.googleusercontent.com',
     iosBundleId: 'com.example.semantic',
   );
 }
