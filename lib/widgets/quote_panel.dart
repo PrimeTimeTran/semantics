@@ -45,8 +45,12 @@ class _QuotePanelState extends State<QuotePanel> {
 
   @override
   Widget build(BuildContext context) {
+    var shortestSide = MediaQuery.of(context).size.shortestSide;
+
+    final bool useMobileLayout = shortestSide < 600;
+    
     return Padding(
-      padding: const EdgeInsets.all(150),
+      padding: EdgeInsets.all(useMobileLayout ? 5 : 150),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -57,8 +61,8 @@ class _QuotePanelState extends State<QuotePanel> {
                 widget.quote.text,
                 textAlign: TextAlign.center,
                 style:
-                    const TextStyle(
-                  fontSize: 35,
+                    TextStyle(
+                  fontSize: useMobileLayout ? 25 : 35,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),

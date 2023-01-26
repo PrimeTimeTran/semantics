@@ -27,6 +27,8 @@ class HighlightedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var shortestSide = MediaQuery.of(context).size.shortestSide;
+    final bool useMobileLayout = shortestSide < 600;
     var t = quote.text;
     int length = text.length;
     var textPrefix = text.take(length);
@@ -40,8 +42,8 @@ class HighlightedText extends StatelessWidget {
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
-        style: const TextStyle(
-          fontSize: 35,
+        style: TextStyle(
+          fontSize: useMobileLayout ? 25 : 35,
           color: Colors.black,
         ),
         children: [

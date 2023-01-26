@@ -26,7 +26,7 @@ class _ChatState extends State<Chat> {
   late String text = '';
   FocusNode myFocusNode = FocusNode();
 
-  var _controller = TextEditingController();
+  final _controller = TextEditingController();
 
   @override
   void initState() {
@@ -42,8 +42,6 @@ class _ChatState extends State<Chat> {
   updateQuotes(values) {
     List q = [];
     values.forEach((key, v) {
-      print(key);
-      print(v);
       q.add(Quote.fromSnapshot(v));
     });
     setState(() {
@@ -55,9 +53,6 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          child: Text('Hi'),
-        ),
         Expanded(
           child: ListView.builder(
             itemCount: quotes.length,
@@ -68,9 +63,11 @@ class _ChatState extends State<Chat> {
             },
           ),
         ),
-        Container(
-          color: Colors.red,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: TextField(
+            autofocus: true,
+            decoration: InputDecoration(hintText: 'Enter message'),
             controller: _controller,
             focusNode: myFocusNode,
             onSubmitted: (value) {
