@@ -102,6 +102,11 @@ class _ComposerState extends State<Composer> {
 
   @override
   Widget build(BuildContext context) {
+    var shortestSide = MediaQuery.of(context).size.shortestSide;
+
+    final bool useMobileLayout = shortestSide < 600;
+
+
     return CallbackShortcuts(
       bindings: {
         const SingleActivator(LogicalKeyboardKey.arrowRight, shift: true):
@@ -115,7 +120,9 @@ class _ComposerState extends State<Composer> {
               child: QuotePanel(quote, text, translatedQuote, changeLanguage,
                   checkPhraseCompleted, nextQuote),
             ),
-            Padding(
+            useMobileLayout
+                ? Container()
+                : Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
