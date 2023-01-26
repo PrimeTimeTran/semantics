@@ -9,28 +9,44 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Center(child: const Text('Semantic Stoic')),
-      backgroundColor: Colors.blue,
-      leading: Builder(builder: (BuildContext context) {
-        return GestureDetector(
-          onTap: () {
-            Scaffold.of(context).openDrawer();
-          },
-          child: Container(
-            padding: const EdgeInsets.all(7.0),
-            child: const Icon(Icons.menu),
-          ),
-        );
-      }),
-      // ignore: prefer_const_literals_to_create_immutables
-      actions: [
-        const Icon(Icons.favorite),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Icon(Icons.search),
-        ),
-        const Icon(Icons.more_vert),
-      ],
-    );
+        title: Center(child: const Text('Semantic Stoic')),
+        backgroundColor: Colors.blue,
+        leading: Builder(builder: (BuildContext context) {
+          return GestureDetector(
+            onTap: () {
+              Scaffold.of(context).openDrawer();
+            },
+            child: Container(
+              padding: const EdgeInsets.all(7.0),
+              child: const Icon(Icons.menu),
+            ),
+          );
+        }),
+        actions: [
+          PopupMenuButton(itemBuilder: (context) {
+            return [
+              const PopupMenuItem<int>(
+                value: 0,
+                child: Text("My Account"),
+              ),
+              const PopupMenuItem<int>(
+                value: 1,
+                child: Text("Settings"),
+              ),
+              const PopupMenuItem<int>(
+                value: 2,
+                child: Text("Logout"),
+              ),
+            ];
+          }, onSelected: (value) {
+            if (value == 0) {
+              print("My account menu is selected.");
+            } else if (value == 1) {
+              print("Settings menu is selected.");
+            } else if (value == 2) {
+              print("Logout menu is selected.");
+            }
+          }),
+        ]);
   }
 }

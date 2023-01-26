@@ -89,9 +89,9 @@ class _ComposerState extends State<Composer> {
       text = v;
     });
     if (text == translatedQuote.text || text == 'lt') {
+      FB.completeQuote();
       saveAsCompleted(translatedQuote.toJson());
-      getQuotes();
-      setTranslatedQuote();
+      nextQuote();
     }
   }
 

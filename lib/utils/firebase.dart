@@ -43,4 +43,15 @@ class FB {
   static signOut() {
     FirebaseAuth.instance.signOut();
   }
+  static logSignIn() async {
+    await analytics.logLogin(loginMethod: 'Email & Password');
+  }
+
+  static logSignUp() async {
+    await analytics.logSignUp(signUpMethod: 'Email & Password');
+  }
+
+  static completeQuote() async {
+    await analytics.logEvent(name: 'complete-quote');
+  }
 }

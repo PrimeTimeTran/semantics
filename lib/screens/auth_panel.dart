@@ -12,12 +12,13 @@ class AuthPanel extends StatefulWidget {
 }
 
 class _AuthPanelState extends State<AuthPanel> {
-  late String email = 'loi@gmail.com';
-  late String password = 'asdfas';
+  late String email = '';
+  late String password = '';
   @override
   void initState() {
     super.initState();
     FB.pageView('Sign in');
+    FB.logSignIn();
   }
 
   Future<void> signInWithGoogle() async {
@@ -33,6 +34,7 @@ class _AuthPanelState extends State<AuthPanel> {
         password: password,
       );
       Navigator.pushNamed(context, '/');
+      FB.logSignUp();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -51,6 +53,7 @@ class _AuthPanelState extends State<AuthPanel> {
         password: password,
       );
       Navigator.pushNamed(context, '/');
+      FB.logSignIn();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');

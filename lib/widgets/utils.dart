@@ -13,7 +13,7 @@ Future saveAsCompleted(q) async {
   _localStorage['quotes'] = jsonEncode(prev);
 }
 
-Future readCompleted() async {
+readCompleted() {
   var l = _localStorage['quotes'] ?? jsonEncode([]);
   return l;
 }

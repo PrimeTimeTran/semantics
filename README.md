@@ -5,10 +5,11 @@ Quizlet/Kahoot/Duolingo/LeetCode tool for learning a language and mental health/
 ## Dependencies
 
 - NPM
+- Dart
 - Flutter
 - Firebase CLI
 
-# WIP
+## WIP
 
 - [x] Add feed page
 - [x] As a user I see questions and answers on each video.
@@ -18,24 +19,25 @@ Quizlet/Kahoot/Duolingo/LeetCode tool for learning a language and mental health/
 Backlog:
 
 - Challenge mode.
+- Create todo list.
+- Add metrics screen.
+- Comments on videos.
+- Add saved phrases screen.
 - User can set their homepage.
+- Add most saved quotes screen.
 - User can choose light or dark moore.
 - Gamify answering questions on videos.
-- Comments on videos.
-- Create todo list.
-- Add saved phrases screen.
-- Add metrics screen.
-- Add most saved quotes screen.
-- Add admin screen for creating lessons. Lessons are videos, questions, answers.
+- Persist volume settings across _controllers.
 - Add phrases types. ie motivational, stoic, joke, fact, elementary
+- Add admin screen for creating lessons. Lessons are videos, questions, answers.
 
 Done:
 
+- Add authentication.
+- Add completed phrases screen.
 - Add highlight right portion of string typed.
 - Add highlight wrong portion of string typed.
 - As a user I can choose language I'm practicing. vi, es, zh, etc.
-- Add completed phrases screen
-- Add Authentication.
 
 app = {
   currentUser: {
@@ -63,11 +65,4 @@ app = {
     next: '',
     author: '',
   },
-  notions: {
-    pages: [],
-  },
-  class Todo {
-    String body;
-    bool done;
-  }
 }

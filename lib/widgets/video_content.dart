@@ -284,10 +284,16 @@ class _VideoContentState extends State<VideoContent> {
                                               fontSize: 30,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        const Divider(
-                                            height: 1,
+                                        const SizedBox(
+                                          width: 600,
+                                          child: Divider(
+                                            height: 40,
                                             thickness: 1,
-                                            color: Colors.red),
+                                            indent: 20,
+                                            endIndent: 0,
+                                            color: Colors.black,
+                                          ),
+                                        ),
                                         Row(
                                           children: [
                                             Text(ans1),
