@@ -34,9 +34,9 @@ class FB {
     }
     auth.authStateChanges().listen((User? user) {
       if (user == null) {
-        print('User is currently signed out!');
+        print('Not Authenticated');
       } else {
-        print('User is signed in Loi');
+        print('Authenticated');
       }
     });
   }

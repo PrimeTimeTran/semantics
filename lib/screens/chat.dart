@@ -3,13 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/services.dart';
 
-class Quote {
+class Message {
   final String body;
   final DateTime created;
-  Quote(this.body, this.created);
-  Quote.fromSnapshot(Map<String, dynamic> json)
+  Message(this.body, this.created);
+  Message.fromSnapshot(Map<String, dynamic> json)
       : created = DateTime.parse(json['created']),
         body = json['body'];
 }
@@ -35,18 +34,30 @@ class _ChatState extends State<Chat> {
 
     ref.limitToLast(10).onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value;
-      updateQuotes(data);
+      updateMessages(data);
     });
   }
 
-  updateQuotes(values) {
+  updateMessages(values) {
     List q = [];
     values.forEach((key, v) {
-      q.add(Quote.fromSnapshot(v));
+      q.add(Message.fromSnapshot(v));
     });
     setState(() {
       quotes = q;
     });
+  }
+
+  onSubmit() {
+    _controller.clear();
+    var q = {"created": DateTime.now().toString(), "body": text};
+    DatabaseReference ref = FirebaseDatabase.instance.ref('quotes');
+    var val = ref.push();
+    val.set(q);
+    setState(() {
+      text = '';
+    });
+    myFocusNode.requestFocus();
   }
 
   @override
@@ -67,20 +78,11 @@ class _ChatState extends State<Chat> {
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: TextField(
             autofocus: true,
-            decoration: InputDecoration(hintText: 'Enter message'),
+            decoration: const InputDecoration(hintText: 'Enter message'),
             controller: _controller,
             focusNode: myFocusNode,
             onSubmitted: (value) {
-              _controller.clear();
-
-              var q = {"created": DateTime.now().toString(), "body": text};
-              DatabaseReference ref = FirebaseDatabase.instance.ref('quotes');
-              var val = ref.push();
-              val.set(q);
-              setState(() {
-                text = '';
-              });
-              myFocusNode.requestFocus();
+              onSubmit();
             },
             onChanged: (value) {
               setState(() {
