@@ -11,10 +11,9 @@ Quizlet/Kahoot/Duolingo/LeetCode tool for learning a language and mental health/
 
 ## WIP
 
-- [x] Add feed page
-- [x] As a user I see questions and answers on each video.
-- [ ] As a user I must answer a question on each video. May have different levels, easy, medium, hard.
+- [ ] As a user I see a daily quote counter in the top right.
 - [ ] As a user I see the next video play when I answer a question.
+- [ ] As a user I must answer a question on each video. May have different levels, easy, medium, hard.
 
 Backlog:
 
@@ -22,6 +21,7 @@ Backlog:
 - Create todo list.
 - Add metrics screen.
 - Comments on videos.
+
 - Add saved phrases screen.
 - User can set their homepage.
 - Add most saved quotes screen.
@@ -38,6 +38,8 @@ Done:
 - Add highlight right portion of string typed.
 - Add highlight wrong portion of string typed.
 - As a user I can choose language I'm practicing. vi, es, zh, etc.
+- [x] Add feed page
+- [x] As a user I see questions and answers on each video.
 
 app = {
   currentUser: {

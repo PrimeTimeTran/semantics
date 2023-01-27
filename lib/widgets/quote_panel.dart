@@ -6,7 +6,6 @@ import 'package:semantic/widgets/language_select.dart';
 import 'package:semantic/classes/quote.dart';
 import 'package:semantic/utils/layout.dart';
 
-
 class QuotePanel extends StatefulWidget {
   const QuotePanel(this.quote, this.text, this.translatedQuote,
       this.changeLanguage, this.checkPhraseCompleted, this.nextQuote,
@@ -44,11 +43,10 @@ class _QuotePanelState extends State<QuotePanel> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final bool isMobile = useMobileLayout(context);
-    
+
     return Padding(
       padding: EdgeInsets.all(isMobile ? 5 : 100),
       child: Column(
@@ -72,8 +70,7 @@ class _QuotePanelState extends State<QuotePanel> {
           Expanded(
             flex: 3,
             child: SizedBox(
-              child:
-                  HighlightedText(widget.translatedQuote, widget.text),
+              child: HighlightedText(widget.translatedQuote, widget.text),
             ),
           ),
           Expanded(

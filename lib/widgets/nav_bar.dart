@@ -1,9 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:semantic/screens/account.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:semantic/screens/settings.dart';
 
 import 'package:semantic/utils/firebase.dart';
+import 'package:semantic/widgets/utils.dart';
 
-class Navbar extends StatelessWidget implements PreferredSizeWidget {
-  const Navbar({super.key});
+class Navbar extends StatefulWidget implements PreferredSizeWidget {
+  const Navbar({super.key, required this.changePage});
+
+  final Function changePage;
+
+  @override
+  State<Navbar> createState() => _NavbarState();
+
+  @override
+  Size get preferredSize => new Size.fromHeight(100);
+}
+
+class _NavbarState extends State<Navbar> {
+  @override
+  void initState() {
+    super.initState();
+    FB.auth.authStateChanges().listen((User? user) {
+      print("Listnerer");
+      if (user != null) {
+        print('in!');
+      } else {
+        print('Signout');
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Size get preferredSize => const Size.fromHeight(50);
@@ -11,7 +43,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        title: Center(child: const Text('Semantic Stoic')),
+        title: const Center(child: Text('Semantic Stoic')),
         backgroundColor: Colors.blue,
         leading: Builder(builder: (BuildContext context) {
           return GestureDetector(
@@ -25,8 +57,22 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
           );
         }),
         actions: [
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              numQuotesCompleted().toString(),
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
           PopupMenuButton(itemBuilder: (context) {
-            return [
+            return !FB.signedIn()
+                ? [
+                    PopupMenuItem<int>(
+                      value: 0,
+                      child: Text("Sign Up/In"),
+                    ),
+                  ]
+                : [
               const PopupMenuItem<int>(
                 value: 0,
                 child: Text("My Account"),
@@ -42,12 +88,11 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
             ];
           }, onSelected: (value) {
             if (value == 0) {
-              print("My account menu is selected.");
-              FB.createFavorite();
+              widget.changePage(const Settings());
             } else if (value == 1) {
               print("Settings menu is selected.");
             } else if (value == 2) {
-              print("Logout menu is selected.");
+              FB.signOut();
             }
           }),
         ]);

@@ -4,7 +4,6 @@ import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:faker/faker.dart';
 
 class FB {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -30,7 +29,6 @@ class FB {
     if (window.location.hostname == 'localhost') {
       await auth.useAuthEmulator('localhost', 9099);
       db.useDatabaseEmulator('localhost', 9000);
-      print('Localhost using emulator');
     }
     auth.authStateChanges().listen((User? user) {
       if (user == null) {
@@ -59,12 +57,5 @@ class FB {
 
   static completeQuote() async {
     await analytics.logEvent(name: 'complete-quote');
-  }
-
-  static createFavorite() async {
-    DatabaseReference ref2 = db.ref('quotes');
-
-    var go = ref2.push();
-    go.set({"created": DateTime.now().toString(), "body": faker.job.title()});
   }
 }

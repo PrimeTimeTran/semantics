@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const Navbar(),
+      appBar: Navbar(changePage: drawerChange),
       drawer: MyDrawer(drawerChange: drawerChange),
       body: Column(
         children: <Widget>[
