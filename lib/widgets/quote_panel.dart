@@ -4,6 +4,8 @@ import 'package:semantic/widgets/highlighted_text.dart';
 import 'package:semantic/widgets/language_select.dart';
 
 import 'package:semantic/classes/quote.dart';
+import 'package:semantic/utils/layout.dart';
+
 
 class QuotePanel extends StatefulWidget {
   const QuotePanel(this.quote, this.text, this.translatedQuote,
@@ -45,12 +47,10 @@ class _QuotePanelState extends State<QuotePanel> {
 
   @override
   Widget build(BuildContext context) {
-    var shortestSide = MediaQuery.of(context).size.shortestSide;
-
-    final bool useMobileLayout = shortestSide < 600;
+    final bool isMobile = useMobileLayout(context);
     
     return Padding(
-      padding: EdgeInsets.all(useMobileLayout ? 5 : 150),
+      padding: EdgeInsets.all(isMobile ? 5 : 150),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -62,7 +62,7 @@ class _QuotePanelState extends State<QuotePanel> {
                 textAlign: TextAlign.center,
                 style:
                     TextStyle(
-                  fontSize: useMobileLayout ? 25 : 35,
+                  fontSize: isMobile ? 25 : 35,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),

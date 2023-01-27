@@ -7,44 +7,13 @@ import 'package:video_player/video_player.dart';
 
 import 'package:semantic/classes/video.dart';
 
+import 'package:semantic/utils/layout.dart';
+
+
 List mediaUrls = [
   // 9:16
   'https://scontent-mia3-2.cdninstagram.com/o1/v/t16/f1/m82/824811606C8784E3DFCB24D6850986BD_video_dashinit.mp4?efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uNzIwLmNsaXBzLmJhc2VsaW5lIn0&_nc_ht=scontent-mia3-2.cdninstagram.com&_nc_cat=105&vs=3373433096254398_3441332658&_nc_vs=HBksFQIYT2lnX3hwdl9yZWVsc19wZXJtYW5lbnRfcHJvZC84MjQ4MTE2MDZDODc4NEUzREZDQjI0RDY4NTA5ODZCRF92aWRlb19kYXNoaW5pdC5tcDQVAALIAQAVABgkR0t5aFBCUHZJV0NxYTBBRUFQc0EtNzlpWFk4WGJwUjFBQUFGFQICyAEAKAAYABsAFQAAJpKCu6zPyfQ%2FFQIoAkMzLBdAJmZmZmZmZhgSZGFzaF9iYXNlbGluZV8xX3YxEQB1%2FgcA&ccb=9-4&oh=00_AfC1Yt3MZM_hKYFbBZuY6PN_q2Scz7DsGo6sMpQwrvrVGQ&oe=63D3BFF3&_nc_sid=ca5ca4',
   'https://scontent-mia3-2.cdninstagram.com/o1/v/t16/f1/m82/514F2F092D41B994113F9F48AEF8E699_video_dashinit.mp4?efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uNzIwLmNsaXBzLmJhc2VsaW5lIn0&_nc_ht=scontent-mia3-2.cdninstagram.com&_nc_cat=109&vs=1120930408592826_4236133015&_nc_vs=HBksFQIYT2lnX3hwdl9yZWVsc19wZXJtYW5lbnRfcHJvZC81MTRGMkYwOTJENDFCOTk0MTEzRjlGNDhBRUY4RTY5OV92aWRlb19kYXNoaW5pdC5tcDQVAALIAQAVABgkR0s4UVRBZnpiS1JZOXRZRUFBTEFwZEtjN3VnWGJwUjFBQUFGFQICyAEAKAAYABsAFQAAJsippY6Oxt0%2FFQIoAkMzLBdAN3dLxqfvnhgSZGFzaF9iYXNlbGluZV8xX3YxEQB1%2FgcA&ccb=9-4&oh=00_AfAaxid0T1me8sWyHddY8v_pQ_aHgMSBZKtBbnJUl1kMaQ&oe=63D47F3C&_nc_sid=ca5ca4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-man-runs-past-ground-level-shot-32809-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-red-frog-on-a-log-1487-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-woman-running-above-the-camera-on-a-running-track-32807-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-two-avenues-with-many-cars-traveling-at-night-34562-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-under-a-peripheral-road-with-two-avenues-on-the-sides-34560-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-city-traffic-on-bridges-and-streets-34565-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-womans-silhouette-walking-on-the-beach-at-sunset-1214-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-portrait-of-a-woman-in-a-pool-1259-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-a-woman-walking-on-the-beach-on-a-sunny-day-1208-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-womans-portrait-wearing-a-bikini-at-the-beach-1215-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-a-woman-in-a-bikini-in-front-of-a-tiled-1263-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-basketball-player-dribbling-then-dunking-2285-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-basketballs-being-shot-in-a-street-rink-2286-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-circuit-board-2381-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-woman-walking-by-a-pool-3157-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-woman-sitting-on-the-edge-of-a-pool-3158-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-machinery-of-a-very-close-watch-3673-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-mist-at-the-base-of-a-snowy-mountain-3308-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-snow-falling-in-a-pine-forest-3352-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-old-street-at-night-3456-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-young-sportsman-jumping-rope-at-home-5050-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-domino-effect-on-dark-background-5253-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-man-playing-with-a-tower-of-poker-chips-5251-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-candies-in-a-waffle-cone-on-a-yellow-background-10368-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-hand-holding-a-rubik-cube-that-seems-to-melt-on-13765-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-artist-painting-an-abstract-portrait-5271-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-portrait-of-a-ballerina-in-ballet-pose-40162-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-portrait-man-on-a-call-working-in-an-office-44748-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-girl-on-a-ladder-plays-the-guitar-and-smiles-straight-13759-large.mp4',
-
-  // 16:9
-  // 'https://assets.mixkit.co/videos/preview/mixkit-beach-front-with-children-playing-2176-large.mp4',
-  // 'https://assets.mixkit.co/videos/preview/mixkit-one-on-one-basketball-game-751-large.mp4',
-  // 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
 ];
 
 class VideoContent extends StatefulWidget {
@@ -187,9 +156,7 @@ class _VideoContentState extends State<VideoContent> {
 
   @override
   Widget build(BuildContext context) {
-    var shortestSide = MediaQuery.of(context).size.shortestSide;
-
-    final bool useMobileLayout = shortestSide < 600;
+    final bool isMobile = useMobileLayout(context);
 
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
@@ -206,7 +173,7 @@ class _VideoContentState extends State<VideoContent> {
       ans4 = videos.first.questions?.first.ans?[3].body ?? '';
     }
 
-    if (useMobileLayout) {
+    if (isMobile) {
       return GestureDetector(
         onTap: togglePlay,
         child: AbsorbPointer(

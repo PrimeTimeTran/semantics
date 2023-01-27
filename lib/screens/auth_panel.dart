@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:semantic/utils/firebase.dart';
+import 'package:semantic/utils/layout.dart';
+
 
 class AuthPanel extends StatefulWidget {
   const AuthPanel({super.key});
@@ -67,12 +69,11 @@ class _AuthPanelState extends State<AuthPanel> {
 
   @override
   Widget build(BuildContext context) {
-    var shortestSide = MediaQuery.of(context).size.shortestSide;
-
-    final bool useMobileLayout = shortestSide < 600;
+    final bool isMobile = useMobileLayout(context);
 
     return Padding(
-      padding: useMobileLayout
+      padding:
+          isMobile
           ? EdgeInsets.all(8)
           : EdgeInsets.fromLTRB(200, 10, 200, 10),
       child: Center(

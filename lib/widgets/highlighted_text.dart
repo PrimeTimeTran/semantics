@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:semantic/classes/quote.dart';
+import 'package:semantic/utils/layout.dart';
+
 
 equalUntil(s1, s2) {
   var idx = 0;
@@ -27,8 +29,8 @@ class HighlightedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var shortestSide = MediaQuery.of(context).size.shortestSide;
-    final bool useMobileLayout = shortestSide < 600;
+    final bool isMobile = useMobileLayout(context);
+
     var t = quote.text;
     int length = text.length;
     var textPrefix = text.take(length);
@@ -43,7 +45,7 @@ class HighlightedText extends StatelessWidget {
       textAlign: TextAlign.center,
       text: TextSpan(
         style: TextStyle(
-          fontSize: useMobileLayout ? 25 : 35,
+          fontSize: isMobile ? 25 : 35,
           color: Colors.black,
         ),
         children: [

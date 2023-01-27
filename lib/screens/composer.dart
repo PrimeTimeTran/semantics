@@ -9,6 +9,8 @@ import 'package:semantic/widgets/quote_panel.dart';
 import 'package:semantic/classes/quote.dart';
 import 'package:semantic/utils/firebase.dart';
 
+import 'package:semantic/utils/layout.dart';
+
 class Composer extends StatefulWidget {
   const Composer({Key? key}) : super(key: key);
 
@@ -102,10 +104,8 @@ class _ComposerState extends State<Composer> {
 
   @override
   Widget build(BuildContext context) {
-    var shortestSide = MediaQuery.of(context).size.shortestSide;
 
-    final bool useMobileLayout = shortestSide < 600;
-
+    final bool isMobile = useMobileLayout(context);
 
     return CallbackShortcuts(
       bindings: {
@@ -120,16 +120,17 @@ class _ComposerState extends State<Composer> {
               child: QuotePanel(quote, text, translatedQuote, changeLanguage,
                   checkPhraseCompleted, nextQuote),
             ),
-            useMobileLayout
+            isMobile
                 ? Container()
                 : Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Text('"shift" + "→" for next quote'),
-                ],
-              ),
-            ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        const Text('"shift" + "→" for next quote'),
+                      ],
+                    ),
+                  ),
           ],
         ),
       ),

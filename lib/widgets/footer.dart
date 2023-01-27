@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:semantic/utils/layout.dart';
+
 class Footer extends StatelessWidget {
   const Footer({super.key});
 
   _launchURL() async {
-    print('Click');
     const url =
         'https://docs.google.com/forms/d/e/1FAIpQLSekPhYKaREo9vzxXcVzux0Ej-loEzLSWI9LGU2tow9vLce1Tg/viewform';
     final uri = Uri.parse(url);
@@ -18,11 +19,10 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var shortestSide = MediaQuery.of(context).size.shortestSide;
+    final bool isMobile = useMobileLayout(context);
 
-    final bool useMobileLayout = shortestSide < 600;
 
-    if (useMobileLayout) {
+    if (isMobile) {
       return Container();
     }
     return Container(
