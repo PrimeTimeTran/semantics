@@ -78,20 +78,23 @@ class _QuotePanelState extends State<QuotePanel> {
           ),
           Expanded(
             flex: 1,
-            child: TextField(
-              autofocus: true,
-              focusNode: _focus,
-              controller: _controller,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: '',
+            child: FractionallySizedBox(
+              widthFactor: 0.8,
+              child: TextField(
+                autofocus: true,
+                focusNode: _focus,
+                controller: _controller,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: '',
+                ),
+                onChanged: (String value) async {
+                  if (value == widget.translatedQuote.text || value == 'lt') {
+                    _controller.clear();
+                  }
+                  widget.checkPhraseCompleted(value);
+                },
               ),
-              onChanged: (String value) async {
-                if (value == widget.translatedQuote.text || value == 'lt') {
-                  _controller.clear();
-                }
-                widget.checkPhraseCompleted(value);
-              },
             ),
           ),
           DropdownButtonExample(changeLanguage: widget.changeLanguage),
