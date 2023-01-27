@@ -65,32 +65,32 @@ class _NavbarState extends State<Navbar> {
             ),
           ),
           PopupMenuButton(itemBuilder: (context) {
-            return !FB.signedIn()
+            return FB.signedIn()
                 ? [
-                    PopupMenuItem<int>(
-                      value: 0,
-                      child: Text("Sign Up/In"),
+                    const PopupMenuItem<int>(
+                      value: 1,
+                      child: Text("My Account"),
+                    ),
+                    const PopupMenuItem<int>(
+                      value: 1,
+                      child: Text("Settings"),
+                    ),
+                    const PopupMenuItem<int>(
+                      value: 2,
+                      child: Text("Logout"),
                     ),
                   ]
                 : [
-              const PopupMenuItem<int>(
-                value: 0,
-                child: Text("My Account"),
-              ),
-              const PopupMenuItem<int>(
-                value: 1,
-                child: Text("Settings"),
-              ),
-              const PopupMenuItem<int>(
-                value: 2,
-                child: Text("Logout"),
-              ),
-            ];
+                    const PopupMenuItem<int>(
+                      value: 0,
+                      child: Text("Sign Up/In"),
+                    ),
+                  ];
           }, onSelected: (value) {
             if (value == 0) {
               widget.changePage(const Settings());
             } else if (value == 1) {
-              print("Settings menu is selected.");
+              widget.changePage(const Account());
             } else if (value == 2) {
               FB.signOut();
             }

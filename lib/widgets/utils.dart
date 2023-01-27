@@ -28,3 +28,10 @@ changeLangTo(v) {
   }
   return v;
 }
+
+
+numQuotesCompleted() {
+  var l = _localStorage['quotes'] ?? jsonEncode([]);
+  var d = json.decode(l);
+  return d.length;
+}

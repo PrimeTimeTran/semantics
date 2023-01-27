@@ -11,6 +11,8 @@ import 'package:semantic/utils/firebase.dart';
 
 import 'package:semantic/utils/layout.dart';
 
+import '../db/quote.dart';
+
 class Composer extends StatefulWidget {
   const Composer({Key? key}) : super(key: key);
 
@@ -94,6 +96,7 @@ class _ComposerState extends State<Composer> {
       FB.completeQuote();
       saveAsCompleted(translatedQuote.toJson());
       nextQuote();
+      updateDailyChallenge();
     }
   }
 
@@ -104,7 +107,6 @@ class _ComposerState extends State<Composer> {
 
   @override
   Widget build(BuildContext context) {
-
     final bool isMobile = useMobileLayout(context);
 
     return CallbackShortcuts(
