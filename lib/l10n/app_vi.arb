@@ -1,0 +1,7 @@
+{
+  "helloWorld": "Chào thế giới",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "foo": "tạm biệt thế giới"
+}

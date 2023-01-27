@@ -1,17 +1,20 @@
 import 'dart:async';
-import 'package:semantic/screens/chat.dart';
 
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
-import 'package:semantic/widgets/nav_bar.dart';
 import 'package:semantic/widgets/footer.dart';
+import 'package:semantic/widgets/nav_bar.dart';
+import 'package:semantic/widgets/my_drawer.dart';
 
+import 'package:semantic/screens/feed.dart';
+import 'package:semantic/screens/chat.dart';
 import 'package:semantic/screens/composer.dart';
 import 'package:semantic/screens/settings.dart';
-import 'package:semantic/screens/feed.dart';
-import 'package:semantic/widgets/my_drawer.dart';
 
 import 'package:semantic/utils/firebase.dart';
 
@@ -22,33 +25,81 @@ Future<void> main() async {
   );
   FB.configAuth();
   FB.logStart();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String _locale = 'en';
+
+  toggleLang() {
+    String l;
+    if (_locale.toString() == 'vi') {
+      l = 'en';
+    } else {
+      l = 'vi';
+    }
+    setState(() {
+      _locale = l;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Semantic Stoic',
+      locale: Locale(_locale),
       debugShowCheckedModeBanner: false,
       navigatorObservers: <NavigatorObserver>[FB.observer],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => const MyHomePage(title: 'Semantic Stoic'),
+        '/': (context) =>
+            MyHomePage(title: 'Semantic Stoic', toggleLang: toggleLang),
         '/settings': (context) => const Settings(),
+      },
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', null), // English
+        Locale('vi', null), // Vietnamese
+      ],
+      localeResolutionCallback: (locale, supportedLocales) {
+        if (locale == null) {
+          Intl.defaultLocale = supportedLocales.first.toLanguageTag();
+          return supportedLocales.first;
+        }
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale.languageCode) {
+            Intl.defaultLocale = supportedLocale.toLanguageTag();
+            return supportedLocale;
+          }
+        }
+        Intl.defaultLocale = supportedLocales.first.toLanguageTag();
+        return supportedLocales.first;
       },
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({
+  Function toggleLang;
+
+  MyHomePage({
     Key? key,
     required this.title,
+    required this.toggleLang,
   }) : super(key: key);
 
   final String title;
@@ -82,8 +133,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: Navbar(changePage: drawerChange),
       drawer: MyDrawer(drawerChange: drawerChange),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          widget.toggleLang();
+        },
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.navigation),
+      ),
       body: Column(
         children: <Widget>[
+          Text(AppLocalizations.of(context)!.helloWorld),
+          Text(AppLocalizations.of(context)!.foo),
           Expanded(
             flex: 10,
             child: body,
