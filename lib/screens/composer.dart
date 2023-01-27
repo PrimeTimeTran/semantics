@@ -31,6 +31,7 @@ class _ComposerState extends State<Composer> {
 
   String text = '';
   String language = 'vi';
+  int count = 1;
 
   @override
   void initState() {
@@ -103,28 +104,63 @@ class _ComposerState extends State<Composer> {
   nextQuote() {
     getQuotes();
     setTranslatedQuote();
+    setState(() {
+      count = count + 1;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final bool isMobile = useMobileLayout(context);
 
-    return CallbackShortcuts(
-      bindings: {
-        const SingleActivator(LogicalKeyboardKey.arrowRight, shift: true):
-            nextQuote,
-      },
-      child: Focus(
-        autofocus: true,
+    if (isMobile) {
+      return GestureDetector(
+        onHorizontalDragEnd: (DragEndDetails details) {
+          if (details.primaryVelocity! > 0) {
+            print('Swipe Right');
+          } else if (details.primaryVelocity! < 0) {
+            print('Swipe Left');
+            nextQuote();
+          }
+        },
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [Text(count.toString())],
+              ),
+            ),
             Expanded(
               child: QuotePanel(quote, text, translatedQuote, changeLanguage,
                   checkPhraseCompleted, nextQuote),
             ),
-            isMobile
-                ? Container()
-                : Padding(
+          ],
+        ),
+      );
+    } else {
+      return CallbackShortcuts(
+        bindings: {
+          const SingleActivator(LogicalKeyboardKey.arrowRight, shift: true):
+              nextQuote,
+        },
+        child: Focus(
+          autofocus: true,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [Text(count.toString())],
+                ),
+              ),
+              Expanded(
+                child: QuotePanel(quote, text, translatedQuote, changeLanguage,
+                    checkPhraseCompleted, nextQuote),
+              ),
+              Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       // ignore: prefer_const_literals_to_create_immutables
@@ -133,9 +169,10 @@ class _ComposerState extends State<Composer> {
                       ],
                     ),
                   ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
