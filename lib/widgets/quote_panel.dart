@@ -50,18 +50,18 @@ class _QuotePanelState extends State<QuotePanel> {
     final bool isMobile = useMobileLayout(context);
     
     return Padding(
-      padding: EdgeInsets.all(isMobile ? 5 : 150),
+      padding: EdgeInsets.all(isMobile ? 5 : 100),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
+            flex: 3,
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Text(
                 widget.quote.text,
                 textAlign: TextAlign.center,
-                style:
-                    TextStyle(
+                style: TextStyle(
                   fontSize: isMobile ? 25 : 35,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -70,31 +70,28 @@ class _QuotePanelState extends State<QuotePanel> {
             ),
           ),
           Expanded(
-            child: Align(
-              child: SizedBox(
-                child:
-                    HighlightedText(widget.translatedQuote, widget.text),
-              ),
+            flex: 3,
+            child: SizedBox(
+              child:
+                  HighlightedText(widget.translatedQuote, widget.text),
             ),
           ),
           Expanded(
-            child: Align(
-              child: TextField(
-                focusNode: _focus,
-
-                autofocus: true,
-                controller: _controller,
-                onChanged: (String value) async {
-                  if (value == widget.translatedQuote.text || value == 'lt') {
-                    _controller.clear();
-                  }
-                  widget.checkPhraseCompleted(value);
-                },
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: '',
-                ),
+            flex: 1,
+            child: TextField(
+              autofocus: true,
+              focusNode: _focus,
+              controller: _controller,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: '',
               ),
+              onChanged: (String value) async {
+                if (value == widget.translatedQuote.text || value == 'lt') {
+                  _controller.clear();
+                }
+                widget.checkPhraseCompleted(value);
+              },
             ),
           ),
           DropdownButtonExample(changeLanguage: widget.changeLanguage),
