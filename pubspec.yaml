@@ -51,6 +51,8 @@ dependencies:
   flutter_localizations: 
     sdk: flutter
   intl: any
+  fl_chart: ^0.60.0
+  table_calendar: ^3.0.8
 
 dev_dependencies:
   flutter_test:
@@ -98,8 +100,6 @@ flutter:
     - assets/vi.json
     - assets/zh-cn.json
     - assets/es.json
-    - assets/quotes.json
-    - assets/quotes1.json
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

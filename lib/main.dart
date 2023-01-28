@@ -12,8 +12,10 @@ import 'package:semantic/widgets/nav_bar.dart';
 import 'package:semantic/widgets/my_drawer.dart';
 
 import 'package:semantic/screens/feed.dart';
+import 'package:semantic/screens/charts.dart';
 import 'package:semantic/screens/chat.dart';
 import 'package:semantic/screens/composer.dart';
+import 'package:semantic/screens/calendar.dart';
 import 'package:semantic/screens/settings.dart';
 
 import 'package:semantic/utils/firebase.dart';
@@ -25,11 +27,11 @@ Future<void> main() async {
   );
   FB.configAuth();
   FB.logStart();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -72,8 +74,8 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('en', null), // English
-        Locale('vi', null), // Vietnamese
+        Locale('en', null),
+        Locale('vi', null),
       ],
       localeResolutionCallback: (locale, supportedLocales) {
         if (locale == null) {
@@ -133,17 +135,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: Navbar(changePage: drawerChange),
       drawer: MyDrawer(drawerChange: drawerChange),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          widget.toggleLang();
-        },
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.navigation),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     widget.toggleLang();
+      //   },
+      //   backgroundColor: Colors.green,
+      //   child: const Icon(Icons.navigation),
+      // ),
       body: Column(
         children: <Widget>[
-          Text(AppLocalizations.of(context)!.helloWorld),
-          Text(AppLocalizations.of(context)!.foo),
+          // Text(AppLocalizations.of(context)!.helloWorld),
+          // Text(AppLocalizations.of(context)!.foo),
           Expanded(
             flex: 10,
             child: body,
