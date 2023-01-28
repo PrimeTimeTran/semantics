@@ -1,11 +1,8 @@
+import 'dart:collection';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import 'dart:collection';
-
-import 'package:table_calendar/table_calendar.dart';
-
-/// Example event class.
 class Event {
   final String title;
 
@@ -15,9 +12,6 @@ class Event {
   String toString() => title;
 }
 
-/// Example events.
-///
-/// Using a [LinkedHashMap] is highly recommended if you decide to use a map.
 final kEvents = LinkedHashMap<DateTime, List<Event>>(
   equals: isSameDay,
   hashCode: getHashCode,
@@ -62,6 +56,9 @@ class _CalendarState extends State<Calendar> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  List<Event> _getEventsForDay(DateTime day) {
+    return kEvents[day] ?? [];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +66,28 @@ class _CalendarState extends State<Calendar> {
       firstDay: kFirstDay,
       lastDay: kLastDay,
       focusedDay: _focusedDay,
+      eventLoader: _getEventsForDay, // this will load events on calendar
+
       calendarFormat: _calendarFormat,
+      calendarStyle: const CalendarStyle(
+        markersAlignment: Alignment.bottomRight,
+      ),
+      // calendarBuilders: CalendarBuilders(
+      //   markerBuilder: (context, day, events) => events.isNotEmpty
+      //       ? Container(
+      //           width: 24,
+      //           height: 24,
+      //           alignment: Alignment.center,
+      //           decoration: const BoxDecoration(
+      //             color: Colors.lightBlue,
+      //           ),
+      //           child: Text(
+      //             '${events.length}',
+      //             style: const TextStyle(color: Colors.white),
+      //           ),
+      //         )
+      //       : null,
+      // ),
       selectedDayPredicate: (day) {
         // Use `selectedDayPredicate` to determine which day is currently selected.
         // If this returns true, then `day` will be marked as selected.
@@ -86,6 +104,9 @@ class _CalendarState extends State<Calendar> {
             _focusedDay = focusedDay;
           });
         }
+        print('Day selected $focusedDay');
+        print('Day selected $selectedDay');
+        print(kEvents[focusedDay]);
       },
       onFormatChanged: (format) {
         if (_calendarFormat != format) {
@@ -99,6 +120,8 @@ class _CalendarState extends State<Calendar> {
         // No need to call `setState()` here
         _focusedDay = focusedDay;
       },
+      daysOfWeekStyle:
+          DaysOfWeekStyle(weekendStyle: TextStyle(color: Colors.red)),
     );
   }
 }
