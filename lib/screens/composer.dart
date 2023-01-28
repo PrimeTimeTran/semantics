@@ -95,7 +95,7 @@ class _ComposerState extends State<Composer> {
     });
     if (text == translatedQuote.text || text == 'lt') {
       FB.completeQuote();
-      saveAsCompleted(translatedQuote.toJson());
+      saveAsCompleted(quote, translatedQuote);
       nextQuote();
       updateDailyChallenge();
     }
@@ -161,14 +161,14 @@ class _ComposerState extends State<Composer> {
                     checkPhraseCompleted, nextQuote),
               ),
               Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: [
-                        const Text('"shift" + "→" for next quote'),
-                      ],
-                    ),
-                  ),
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    const Text('"shift" + "→" for next quote'),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:moment_dart/moment_dart.dart';
 
 import 'package:semantic/widgets/utils.dart';
 
 import 'package:semantic/classes/quote.dart';
 
+import '../utils/layout.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -14,7 +16,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  late List<Quote> quotes = [];
+  late List<QuoteRecord> quotes = [];
 
   @override
   void initState() {
@@ -24,9 +26,9 @@ class _DashboardState extends State<Dashboard> {
 
   Future getQuotes() async {
     var data = await readCompleted();
-    var d = json.decode(data);
-
-    var q = List<Quote>.from(d.map((x) => Quote.fromJson(jsonDecode(x))));
+    var d = jsonDecode(data);
+    var q = List<QuoteRecord>.from(
+        d.map((x) => QuoteRecord.fromJson(jsonDecode(x))));
     setState(() {
       quotes = q;
     });
@@ -34,21 +36,44 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = useMobileLayout(context);
+
     return SafeArea(
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView.builder(
-              itemCount: quotes.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(quotes[index].text),
-                  subtitle: Text(quotes[index].author),
-                );
-              },
+      child: Padding(
+        padding: EdgeInsets.all(isMobile ? 0 : 20.0),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: ListView.builder(
+                itemCount: quotes.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          quotes[index].quote.text,
+                          style: TextStyle(fontSize: isMobile ? 15 : 30),
+                        ),
+                        subtitle: Text(
+                          quotes[index].translatedQuote.text,
+                          style: TextStyle(fontSize: isMobile ? 15 : 30),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 32.0),
+                        trailing: Text(
+                          quotes[index].date
+                              .format(payload: "MMM Do YY", forceLocal: true)
+                              .toString(),
+                          style: TextStyle(fontSize: isMobile ? 10 : 30),
+                        ),
+                      ),
+                      Divider(),
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

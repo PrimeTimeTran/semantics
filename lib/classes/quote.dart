@@ -1,7 +1,7 @@
 class Quote {
-  final int id;
-  final String text;
-  final String author;
+  int id;
+  String text;
+  String author;
 
   Quote(this.id, this.text, this.author);
 
@@ -15,4 +15,17 @@ class Quote {
         'text': text,
         'author': author,
       };
+}
+
+class QuoteRecord {
+  Quote quote;
+  Quote translatedQuote;
+  DateTime date;
+
+  QuoteRecord(this.quote, this.translatedQuote, this.date);
+
+  QuoteRecord.fromJson(Map<String, dynamic> json)
+      : quote = Quote.fromJson(json['quote']),
+        translatedQuote = Quote.fromJson(json['translatedQuote']),
+        date = DateTime.parse(json['date']);
 }

@@ -4,12 +4,17 @@ import 'dart:convert';
 
 final Storage _localStorage = window.localStorage;
 
-Future saveAsCompleted(q) async {
+Future saveAsCompleted(q, translatedQuote) async {
   var l = _localStorage['quotes'] ?? jsonEncode([]);
 
   var prev = jsonDecode(l);
 
-  prev.add(jsonEncode(q));
+  prev.add(jsonEncode({
+    'quote': q.toJson(),
+    'translatedQuote': translatedQuote.toJson(),
+    'date': DateTime.now().toString(),
+  }));
+
   _localStorage['quotes'] = jsonEncode(prev);
 }
 
@@ -28,7 +33,6 @@ changeLangTo(v) {
   }
   return v;
 }
-
 
 numQuotesCompleted() {
   var l = _localStorage['quotes'] ?? jsonEncode([]);

@@ -16,6 +16,7 @@ import 'package:semantic/screens/charts.dart';
 import 'package:semantic/screens/chat.dart';
 import 'package:semantic/screens/composer.dart';
 import 'package:semantic/screens/calendar.dart';
+import 'package:semantic/screens/dashboard.dart';
 import 'package:semantic/screens/settings.dart';
 
 import 'package:semantic/utils/firebase.dart';
