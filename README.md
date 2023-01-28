@@ -17,28 +17,28 @@ Quizlet/Kahoot/Duolingo/LeetCode tool for learning a language and mental health/
 
 Backlog:
 
-- Challenge mode.
-- Create todo list.
-- Add metrics screen.
-- Comments on videos.
+- [ ] Challenge mode.
+- [ ] Create todo list.
+- [ ] Add metrics screen.
+- [ ] Comments on videos.
 
-- Add saved phrases screen.
-- User can set their homepage.
-- Add most saved quotes screen.
-- User can choose light or dark moore.
-- Gamify answering questions on videos.
-- Persist volume settings across _controllers.
-- Add phrases types. ie motivational, stoic, joke, fact, elementary
-- Add admin screen for creating lessons. Lessons are videos, questions, answers.
+- [ ] Add saved phrases screen.
+- [ ] User can set their homepage.
+- [ ] Add most saved quotes screen.
+- [ ] User can choose light or dark moore.
+- [ ] Gamify answering questions on videos.
+- [ ] Persist volume settings across _controllers.
+- [ ] Add phrases types. ie motivational, stoic, joke, fact, elementary
+- [ ] Add admin screen for creating lessons. Lessons are videos, questions, answers.
 
 Done:
 
-- Add authentication.
-- Add completed phrases screen.
-- Add highlight right portion of string typed.
-- Add highlight wrong portion of string typed.
-- As a user I can choose language I'm practicing. vi, es, zh, etc.
-- [x] Add feed page
+- [x] Add feed page.
+- [x] Add authentication.
+- [x] Add completed phrases screen.
+- [x] Add highlight right portion of string typed.
+- [x] Add highlight wrong portion of string typed.
+- [x] As a user I can choose language I'm practicing. vi, es, zh, etc.
 - [x] As a user I see questions and answers on each video.
 
 app = {

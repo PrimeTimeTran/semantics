@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:semantic/screens/calendar.dart';
 
 import 'package:semantic/screens/composer.dart';
 import 'package:semantic/screens/feed.dart';
@@ -70,6 +71,18 @@ class _MyDrawerState extends State<MyDrawer> {
             title: const Text('Chat'),
             onTap: () {
               widget.drawerChange(const Chat());
+              Navigator.pop(context);
+            },
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Divider(color: Colors.grey),
+          ),
+          ListTile(
+            leading: const Icon(Icons.calendar_month),
+            title: const Text('History'),
+            onTap: () {
+              widget.drawerChange(const Calendar());
               Navigator.pop(context);
             },
           ),

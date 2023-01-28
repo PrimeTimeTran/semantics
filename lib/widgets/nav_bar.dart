@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:semantic/screens/account.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:semantic/screens/calendar.dart';
 import 'package:semantic/screens/settings.dart';
 
 import 'package:semantic/utils/firebase.dart';
@@ -58,7 +59,9 @@ class _NavbarState extends State<Navbar> {
         }),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              widget.changePage(const Calendar());
+            },
             child: Text(
               numQuotesCompleted().toString(),
               style: const TextStyle(color: Colors.white),
