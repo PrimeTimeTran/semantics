@@ -1,7 +1,9 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
-  "foo": "Bye World"
+  "home": "Home",
+  "feed": "Feed",
+  "completed": "Completed",
+  "chat": "Chat",
+  "history": "History",
+  "settings": "Settings",
+  "toggle": "Toggle"
 }

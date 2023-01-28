@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:semantic/screens/calendar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:semantic/screens/composer.dart';
 import 'package:semantic/screens/feed.dart';
@@ -9,9 +10,11 @@ import 'package:semantic/screens/settings.dart';
 import '../screens/chat.dart';
 
 class MyDrawer extends StatefulWidget {
-  const MyDrawer({super.key, required this.drawerChange});
+  const MyDrawer(
+      {super.key, required this.drawerChange, required this.changeLang});
 
   final Function drawerChange;
+  final Function changeLang;
 
   @override
   State<MyDrawer> createState() => _MyDrawerState();
@@ -32,7 +35,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.home),
-            title: const Text('Home'),
+            title: Text(AppLocalizations.of(context)!.home),
             onTap: () {
               widget.drawerChange(const Composer());
               Navigator.pop(context);
@@ -44,7 +47,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.feed),
-            title: const Text('Feed'),
+            title: Text(AppLocalizations.of(context)!.feed),
             onTap: () {
               widget.drawerChange(const Feed());
               Navigator.pop(context);
@@ -56,7 +59,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.book),
-            title: const Text('Completed'),
+            title: Text(AppLocalizations.of(context)!.completed),
             onTap: () {
               widget.drawerChange(const Dashboard());
               Navigator.pop(context);
@@ -68,7 +71,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.chat_outlined),
-            title: const Text('Chat'),
+            title: Text(AppLocalizations.of(context)!.chat),
             onTap: () {
               widget.drawerChange(const Chat());
               Navigator.pop(context);
@@ -80,7 +83,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.calendar_month),
-            title: const Text('History'),
+            title: Text(AppLocalizations.of(context)!.history),
             onTap: () {
               widget.drawerChange(const Calendar());
               Navigator.pop(context);
@@ -92,12 +95,18 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
           ListTile(
             leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
+            title: Text(AppLocalizations.of(context)!.settings),
             onTap: () {
               widget.drawerChange(const Settings());
               Navigator.pop(context);
             },
           ),
+          MaterialButton(
+            child: Text(AppLocalizations.of(context)!.toggle),
+            onPressed: () {
+              widget.changeLang();
+            },
+          )
         ],
       ),
     );

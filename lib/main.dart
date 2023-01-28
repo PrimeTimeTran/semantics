@@ -135,18 +135,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Navbar(changePage: drawerChange),
-      drawer: MyDrawer(drawerChange: drawerChange),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     widget.toggleLang();
-      //   },
-      //   backgroundColor: Colors.green,
-      //   child: const Icon(Icons.navigation),
-      // ),
+      drawer:
+          MyDrawer(drawerChange: drawerChange, changeLang: widget.toggleLang),
       body: Column(
         children: <Widget>[
-          // Text(AppLocalizations.of(context)!.helloWorld),
-          // Text(AppLocalizations.of(context)!.foo),
           Expanded(
             flex: 10,
             child: body,

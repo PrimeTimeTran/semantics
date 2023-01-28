@@ -1,7 +1,9 @@
 {
-  "helloWorld": "Chào thế giới",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
-  "foo": "tạm biệt thế giới"
+  "home": "Trang Chủ",
+  "feed": "Cho ăn",
+  "completed": "Hoàn thành",
+  "chat": "Trò chuyện",
+  "history": "Lịch sử",
+  "settings": "Cài đặt",
+  "toggle": "Chuyển đổi"
 }
