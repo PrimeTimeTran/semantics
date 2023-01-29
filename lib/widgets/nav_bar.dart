@@ -24,7 +24,6 @@ class _NavbarState extends State<Navbar> {
   void initState() {
     super.initState();
     FB.auth.authStateChanges().listen((User? user) {
-      print("Listnerer");
       if (user != null) {
         print('in!');
       } else {
@@ -38,7 +37,6 @@ class _NavbarState extends State<Navbar> {
     super.dispose();
   }
 
-  @override
   Size get preferredSize => const Size.fromHeight(50);
 
   @override
