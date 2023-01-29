@@ -16,7 +16,7 @@ class Navbar extends StatefulWidget implements PreferredSizeWidget {
   State<Navbar> createState() => _NavbarState();
 
   @override
-  Size get preferredSize => new Size.fromHeight(100);
+  Size get preferredSize => const Size.fromHeight(50);
 }
 
 class _NavbarState extends State<Navbar> {
@@ -25,9 +25,9 @@ class _NavbarState extends State<Navbar> {
     super.initState();
     FB.auth.authStateChanges().listen((User? user) {
       if (user != null) {
-        print('in!');
+        // print('In!');
       } else {
-        print('Signout');
+        // print('Out');
       }
     });
   }
@@ -36,8 +36,6 @@ class _NavbarState extends State<Navbar> {
   void dispose() {
     super.dispose();
   }
-
-  Size get preferredSize => const Size.fromHeight(50);
 
   @override
   Widget build(BuildContext context) {

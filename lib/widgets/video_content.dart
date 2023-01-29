@@ -13,6 +13,7 @@ import 'package:semantic/utils/layout.dart';
 List mediaUrls = [
   // 9:16
   'https://scontent-atl3-2.cdninstagram.com/o1/v/t16/f1/m82/7F434028BEB6320526A439D6A9A78BA2_video_dashinit.mp4?efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uNzIwLmNsaXBzLmJhc2VsaW5lIn0&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_cat=110&vs=529123029157777_1315743457&_nc_vs=HBksFQIYT2lnX3hwdl9yZWVsc19wZXJtYW5lbnRfcHJvZC83RjQzNDAyOEJFQjYzMjA1MjZBNDM5RDZBOUE3OEJBMl92aWRlb19kYXNoaW5pdC5tcDQVAALIAQAVABgkR0hraDdnTFJiLUJjYUxrQkFJMlAwU2ppSHN4amJwUjFBQUFGFQICyAEAKAAYABsAFQAAJtDs66eS07Q%2FFQIoAkMzLBdAHogxJul41RgSZGFzaF9iYXNlbGluZV8xX3YxEQB1%2FgcA&ccb=9-4&oh=00_AfDvJEaaIPBRPK-Rc0NQOZEZZG2kJFLeQBv5umLWC__sAw&oe=63D87CE9&_nc_sid=ca5ca4',
+  'https://scontent-atl3-2.cdninstagram.com/o1/v/t16/f1/m82/404A67E06AFE637F90A1A627FB402BA4_video_dashinit.mp4?efg=eyJxZV9ncm91cHMiOiJbXCJpZ193ZWJfZGVsaXZlcnlfdnRzX290ZlwiXSIsInZlbmNvZGVfdGFnIjoidnRzX3ZvZF91cmxnZW4uNzIwLmNsaXBzLmJhc2VsaW5lIn0&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_cat=107&vs=919538089070470_3587486817&_nc_vs=HBksFQIYT2lnX3hwdl9yZWVsc19wZXJtYW5lbnRfcHJvZC80MDRBNjdFMDZBRkU2MzdGOTBBMUE2MjdGQjQwMkJBNF92aWRlb19kYXNoaW5pdC5tcDQVAALIAQAVABgkR0FVUjN4STBPZ1RTX1pFQUFDSlBRWjBaUTlRaWJwUjFBQUFGFQICyAEAKAAYABsAFQAAJqjrtPLSt%2Bk%2FFQIoAkMzLBdALQAAAAAAABgSZGFzaF9iYXNlbGluZV8xX3YxEQB1%2FgcA&ccb=9-4&oh=00_AfCHrfn1pe-3tDOzgkY9Bspyxggf-0sfZWxH-Nk86BuGKA&oe=63D7B02D&_nc_sid=cff2a4'
 ];
 
 class VideoContent extends StatefulWidget {
@@ -174,22 +175,21 @@ class _VideoContentState extends State<VideoContent> {
 
     if (isMobile) {
       return GestureDetector(
+        onHorizontalDragEnd: (DragEndDetails details) {
+          if (details.primaryVelocity! > 0) {
+          } else if (details.primaryVelocity! < 0) {
+            next();
+          }
+        },
         onTap: togglePlay,
         child: AbsorbPointer(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-            child: Column(
-              children: [
-                _controller.value.isInitialized
-                    ? SizedBox(
-                        width: width,
-                        height: height * .83,
-                        child: VideoPlayer(_controller),
-                      )
-                    : Container(),
-              ],
-            ),
-          ),
+          child: _controller.value.isInitialized
+              ? SizedBox(
+                  width: width,
+                  height: height,
+                  child: VideoPlayer(_controller),
+                )
+              : Container(),
         ),
       );
     }
