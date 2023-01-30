@@ -41,7 +41,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _locale = 'en';
 
-  toggleLang() {
+  changeLang() {
     String l;
     if (_locale.toString() == 'vi') {
       l = 'en';
@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
       ),
       routes: {
         '/': (context) =>
-            MyHomePage(title: 'Semantic Stoic', toggleLang: toggleLang),
+            MyHomePage(title: 'Semantic Stoic', changeLang: changeLang),
         '/settings': (context) => Settings(),
       },
       localizationsDelegates: const [
@@ -100,11 +100,11 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({
     Key? key,
     required this.title,
-    required this.toggleLang,
+    required this.changeLang,
   }) : super(key: key);
 
   final String title;
-  final Function toggleLang;
+  final Function changeLang;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: Navbar(changePage: drawerChange),
       drawer:
-          MyDrawer(drawerChange: drawerChange, changeLang: widget.toggleLang),
+          MyDrawer(drawerChange: drawerChange, changeLang: widget.changeLang),
       body: Column(
         children: <Widget>[
           Expanded(

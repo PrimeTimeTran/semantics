@@ -40,7 +40,8 @@ class _NavbarState extends State<Navbar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        title: const Center(child: Text('Semantic Stoic')),
+      title: const Text('Semantic Stoic'),
+      centerTitle: true,
         backgroundColor: Colors.blue,
         leading: Builder(builder: (BuildContext context) {
           return GestureDetector(
@@ -94,6 +95,7 @@ class _NavbarState extends State<Navbar> {
               FB.signOut();
             }
           }),
-        ]);
+      ],
+    );
   }
 }
