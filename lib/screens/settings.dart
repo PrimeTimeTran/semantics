@@ -7,9 +7,9 @@ import 'package:semantic/screens/auth_panel.dart';
 const List<String> list = <String>['English 🇺🇸', 'Vietnamese 🇻🇳'];
 
 class Settings extends StatefulWidget {
-  Settings({super.key, this.changeLang});
+  const Settings({super.key, this.changeLang});
 
-  Function? changeLang;
+  final Function? changeLang;
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -33,6 +33,46 @@ class _SettingsState extends State<Settings> {
     return FB.signedIn()
         ? Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      // border: Border.all(color: Colors.blueAccent),
+                      ),
+                  child: FractionallySizedBox(
+                    widthFactor: 0.9,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: const [
+                            Expanded(
+                              child: TextField(
+                                decoration: InputDecoration(hintText: 'John'),
+                              ),
+                            ),
+                            SizedBox(width: 50),
+                            Expanded(
+                              child: TextField(
+                                decoration: InputDecoration(hintText: 'Doe'),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: const [
+                            Expanded(
+                              child: TextField(
+                                decoration:
+                                    InputDecoration(hintText: 'john@email.com'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               DropdownButton<String>(
                 value: dropdownValue,
                 icon: const Icon(Icons.arrow_downward),
@@ -56,7 +96,12 @@ class _SettingsState extends State<Settings> {
                   );
                 }).toList(),
               ),
-              MaterialButton(onPressed: signOut, child: const Text('Sign Out')),
+              SizedBox(height: 20),
+              MaterialButton(
+                onPressed: signOut,
+                child: const Text('Sign Out'),
+                color: Colors.redAccent,
+              ),
             ],
           )
         : const AuthPanel();

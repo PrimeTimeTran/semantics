@@ -46,19 +46,15 @@ class _DashboardState extends State<Dashboard> {
             Expanded(
               child: ListView.builder(
                 itemCount: quotes.length,
-                
                 itemBuilder: (context, index) {
                   final item = quotes[index];
 
                   return Dismissible(
                     key: Key(item.date.toString()),
                     onDismissed: (direction) {
-                      // Remove the item from the data source.
                       setState(() {
                         quotes.removeAt(index);
                       });
-
-                      // Then show a snackbar.
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('$item dismissed')));
                     },
@@ -67,11 +63,11 @@ class _DashboardState extends State<Dashboard> {
                         ListTile(
                           title: Text(
                             quotes[index].quote.text,
-                            style: TextStyle(fontSize: isMobile ? 15 : 30),
+                            style: TextStyle(fontSize: isMobile ? 15 : 20),
                           ),
                           subtitle: Text(
                             quotes[index].translatedQuote.text,
-                            style: TextStyle(fontSize: isMobile ? 15 : 30),
+                            style: TextStyle(fontSize: isMobile ? 15 : 20),
                           ),
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 32.0),
@@ -79,7 +75,7 @@ class _DashboardState extends State<Dashboard> {
                             quotes[index].date
                                 .format(payload: "MMM Do YY", forceLocal: true)
                                 .toString(),
-                            style: TextStyle(fontSize: isMobile ? 10 : 30),
+                            style: TextStyle(fontSize: isMobile ? 10 : 20),
                           ),
                         ),
                         const Divider(),
