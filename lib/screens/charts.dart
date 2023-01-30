@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -37,34 +36,32 @@ class _ChartsState extends State<Charts> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: LineChart(
-        LineChartData(
-          borderData: FlBorderData(show: false),
-          lineBarsData: [
-            // The indigo line
-            LineChartBarData(
-              spots: dummyData1,
-              isCurved: true,
-              barWidth: 3,
-              color: Colors.indigo,
-            ),
-            // The red line
-            LineChartBarData(
-              spots: dummyData2,
-              isCurved: true,
-              barWidth: 3,
-              color: Colors.red,
-            ),
-            // The blue line
-            LineChartBarData(
-              spots: dummyData3,
-              isCurved: false,
-              barWidth: 3,
-              color: Colors.blue,
-            )
-          ],
-        ),
+    return LineChart(
+      LineChartData(
+        borderData: FlBorderData(show: false),
+        lineBarsData: [
+          // The indigo line
+          LineChartBarData(
+            spots: dummyData1,
+            isCurved: true,
+            barWidth: 3,
+            color: Colors.indigo,
+          ),
+          // The red line
+          LineChartBarData(
+            spots: dummyData2,
+            isCurved: true,
+            barWidth: 3,
+            color: Colors.red,
+          ),
+          // The blue line
+          LineChartBarData(
+            spots: dummyData3,
+            isCurved: false,
+            barWidth: 3,
+            color: Colors.blue,
+          )
+        ],
       ),
     );
   }

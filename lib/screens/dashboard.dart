@@ -73,7 +73,8 @@ class _DashboardState extends State<Dashboard> {
                             quotes[index].translatedQuote.text,
                             style: TextStyle(fontSize: isMobile ? 15 : 30),
                           ),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 32.0),
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 32.0),
                           trailing: Text(
                             quotes[index].date
                                 .format(payload: "MMM Do YY", forceLocal: true)
@@ -81,7 +82,7 @@ class _DashboardState extends State<Dashboard> {
                             style: TextStyle(fontSize: isMobile ? 10 : 30),
                           ),
                         ),
-                        Divider(),
+                        const Divider(),
                       ],
                     ),
                   );

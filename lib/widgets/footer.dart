@@ -32,7 +32,7 @@ class Footer extends StatelessWidget {
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Text('About'),
               Text('Careers'),
               Text('Docs'),
@@ -40,7 +40,7 @@ class Footer extends StatelessWidget {
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Text('Facebook'),
               Text('LinkedIn'),
               Text('Contact Us'),

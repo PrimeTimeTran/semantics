@@ -32,9 +32,9 @@ class FB {
     }
     auth.authStateChanges().listen((User? user) {
       if (user == null) {
-        print('Not Authenticated');
+        // print('Not Authenticated');
       } else {
-        print('Authenticated');
+        // print('Authenticated');
       }
     });
   }

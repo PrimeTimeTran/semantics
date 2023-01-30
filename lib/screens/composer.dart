@@ -38,8 +38,8 @@ class _ComposerState extends State<Composer> {
     super.initState();
     logEvents();
     getQuotes();
-    print('Authenticated:');
-    print(FB.signedIn());
+    // print('Authenticated:');
+    // print(FB.signedIn());
   }
 
   changeLanguage(v) {
@@ -117,9 +117,9 @@ class _ComposerState extends State<Composer> {
       return GestureDetector(
         onHorizontalDragEnd: (DragEndDetails details) {
           if (details.primaryVelocity! > 0) {
-            print('Swipe Right');
+            // print('Swipe Right');
           } else if (details.primaryVelocity! < 0) {
-            print('Swipe Left');
+            // print('Swipe Left');
             nextQuote();
           }
         },

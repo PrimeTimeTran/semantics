@@ -125,7 +125,7 @@ class _VideoContentState extends State<VideoContent> {
   }
 
   toggleSound() {
-    print('Toggle');
+    // print('Toggle');
     if (_controller.value.volume == 0) {
       _controller.setVolume(.5);
     } else {
@@ -134,23 +134,23 @@ class _VideoContentState extends State<VideoContent> {
   }
 
   up() {
-    print('up');
+    // print('up');
     _controller.setVolume(_controller.value.volume + .1);
   }
 
   down() {
-    print('down');
+    // print('down');
     _controller.setVolume(_controller.value.volume - .1);
   }
 
   next() {
-    print('next');
+    // print('next');
     mediaUrls.shuffle();
     _startVideoPlayer(mediaUrls[0]);
   }
 
   togglePlay() {
-    print('play/pause');
+    // print('play/pause');
     _controller.value.isPlaying ? _controller.pause() : _controller.play();
   }
 

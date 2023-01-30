@@ -39,12 +39,12 @@ class _AuthPanelState extends State<AuthPanel> {
       FB.logSignUp();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        // print('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        // print('The account already exists for that email.');
       }
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 
@@ -58,12 +58,12 @@ class _AuthPanelState extends State<AuthPanel> {
       FB.logSignIn();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        // print('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        // print('The account already exists for that email.');
       }
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 
@@ -74,15 +74,15 @@ class _AuthPanelState extends State<AuthPanel> {
     return Padding(
       padding:
           isMobile
-          ? EdgeInsets.all(8)
-          : EdgeInsets.fromLTRB(200, 10, 200, 10),
+          ? const EdgeInsets.all(8)
+          : const EdgeInsets.fromLTRB(200, 10, 200, 10),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Align(
-              child: Text('Welcome'),
               alignment: Alignment.centerLeft,
+              child: Text('Welcome'),
             ),
             TextField(
               onChanged: (String value) async {

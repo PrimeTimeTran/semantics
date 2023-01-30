@@ -97,15 +97,14 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-  Function toggleLang;
-
-  MyHomePage({
+  const MyHomePage({
     Key? key,
     required this.title,
     required this.toggleLang,
   }) : super(key: key);
 
   final String title;
+  final Function toggleLang;
 
   @override
   // ignore: library_private_types_in_public_api
