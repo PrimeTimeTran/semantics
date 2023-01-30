@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:semantic/utils/layout.dart';
 
@@ -32,18 +33,18 @@ class Footer extends StatelessWidget {
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text('About'),
-              Text('Careers'),
-              Text('Docs'),
+            children: [
+              Text(AppLocalizations.of(context)!.about),
+              Text(AppLocalizations.of(context)!.careers),
+              Text(AppLocalizations.of(context)!.docs),
             ],
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text('Facebook'),
-              Text('LinkedIn'),
-              Text('Contact Us'),
+            children: [
+              const Text('Facebook'),
+              const Text('LinkedIn'),
+              Text(AppLocalizations.of(context)!.contact),
             ],
           ),
           Column(
@@ -53,19 +54,19 @@ class Footer extends StatelessWidget {
                 onTap: () {
                   _launchURL();
                 },
-                child: const Text('Help'),
+                child: Text(AppLocalizations.of(context)!.help),
               ),
               GestureDetector(
                 onTap: () {
                   _launchURL();
                 },
-                child: const Text('Request'),
+                child: Text(AppLocalizations.of(context)!.request),
               ),
               GestureDetector(
                 onTap: () {
                   _launchURL();
                 },
-                child: const Text('Bug Report'),
+                child: Text(AppLocalizations.of(context)!.bug_report),
               ),
             ],
           ),

@@ -5,5 +5,12 @@
   "chat": "Trò chuyện",
   "history": "Lịch sử",
   "settings": "Cài đặt",
-  "toggle": "Chuyển đổi"
+  "toggle": "Chuyển đổi",
+  "about": "Về chúng tôi",
+  "careers": "Nghề nghiệp",
+  "docs": "Tài liệu",
+  "contact": "Liên hệ chúng tôi",
+  "help": "Liên hệ chúng tôi",
+  "request": "Lời yêu cầu",
+  "bug_report": "Báo cáo lỗi"
 }

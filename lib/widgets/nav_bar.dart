@@ -87,7 +87,7 @@ class _NavbarState extends State<Navbar> {
                   ];
           }, onSelected: (value) {
             if (value == 0) {
-              widget.changePage(const Settings());
+              widget.changePage(Settings());
             } else if (value == 1) {
               widget.changePage(const Account());
             } else if (value == 2) {

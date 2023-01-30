@@ -97,16 +97,10 @@ class _MyDrawerState extends State<MyDrawer> {
             leading: const Icon(Icons.settings),
             title: Text(AppLocalizations.of(context)!.settings),
             onTap: () {
-              widget.drawerChange(const Settings());
+              widget.drawerChange(Settings(changeLang: widget.changeLang));
               Navigator.pop(context);
             },
           ),
-          MaterialButton(
-            child: Text(AppLocalizations.of(context)!.toggle),
-            onPressed: () {
-              widget.changeLang();
-            },
-          )
         ],
       ),
     );

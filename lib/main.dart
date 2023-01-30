@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/': (context) =>
             MyHomePage(title: 'Semantic Stoic', toggleLang: toggleLang),
-        '/settings': (context) => const Settings(),
+        '/settings': (context) => Settings(),
       },
       localizationsDelegates: const [
         AppLocalizations.delegate,
