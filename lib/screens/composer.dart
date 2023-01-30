@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:admanager_web/admanager_web.dart';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'package:semantic/widgets/utils.dart';
@@ -149,6 +151,10 @@ class _ComposerState extends State<Composer> {
           autofocus: true,
           child: Column(
             children: [
+              AdBlock(
+                size: AdBlockSize.largeRectangle,
+                adUnitId: "/1272598348",
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(

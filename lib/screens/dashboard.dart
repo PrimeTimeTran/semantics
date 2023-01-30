@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:moment_dart/moment_dart.dart';
+import 'package:admanager_web/admanager_web.dart';
 
 import 'package:semantic/widgets/utils.dart';
 
@@ -77,6 +78,10 @@ class _DashboardState extends State<Dashboard> {
                                 .toString(),
                             style: TextStyle(fontSize: isMobile ? 10 : 20),
                           ),
+                        ),
+                        AdBlock(
+                          size: AdBlockSize.largeRectangle,
+                          adUnitId: "/9530092819",
                         ),
                         const Divider(),
                       ],

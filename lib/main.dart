@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'firebase_options.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:admanager_web/admanager_web.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
+
 
 import 'package:semantic/widgets/footer.dart';
 import 'package:semantic/widgets/nav_bar.dart';
@@ -28,6 +30,7 @@ Future<void> main() async {
   );
   FB.configAuth();
   FB.logStart();
+  AdManagerWeb.init();
   runApp(const MyApp());
 }
 
@@ -113,6 +116,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Widget body = const Composer();
+  // Widget body = const Dashboard();
 
   @override
   void initState() {

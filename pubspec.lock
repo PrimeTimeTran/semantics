@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.12"
+  admanager_web:
+    dependency: "direct main"
+    description:
+      name: admanager_web
+      sha256: ecc0743716c1c6ab21f6680b77613466d15b074d5111341de2e9dfd1cc9febe1
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   archive:
     dependency: transitive
     description:
@@ -667,5 +675,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.18.0 <4.0.0"
+  dart: ">=2.18.1 <4.0.0"
   flutter: ">=3.3.0"
